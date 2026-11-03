@@ -4,6 +4,9 @@ on:
     tags: ['v*']
   workflow_dispatch:
 
+permissions:
+  contents: write
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -24,10 +27,8 @@ jobs:
         run: |
           rm -f release.keystore
           if [ -z "${{ secrets.KEYSTORE_B64 }}" ]; then
-            echo "Secret not found. Generating temporary keystore..."
             keytool -genkey -v -keystore release.keystore -alias hustler -keyalg RSA -keysize 2048 -validity 10000 -storepass hustler123 -keypass hustler123 -dname "CN=Hustler, OU=Dev, O=Hustler, L=IN, S=IN, C=IN"
           else
-            echo "Secret found. Decoding..."
             echo "${{ secrets.KEYSTORE_B64 }}" | base64 -d > release.keystore
           fi
 
