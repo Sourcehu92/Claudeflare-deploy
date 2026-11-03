@@ -17,7 +17,8 @@ jobs:
       - name: Install Tools
         run: |
           sudo apt-get update
-          sudo apt-get install -y apktool zipalign apksigner
+          sudo apt-get install -y zipalign apksigner
+          wget -q https://github.com/iBotPeaches/Apktool/releases/download/v2.9.3/apktool_2.9.3.jar -O apktool.jar
 
       - name: Setup Keystore
         run: |
@@ -32,13 +33,13 @@ jobs:
 
       - name: Build Game APK
         run: |
-          apktool b recon_src/game -o game_unsigned.apk
+          java -jar apktool.jar b recon_src/game -o game_unsigned.apk -c --use-aapt2
           zipalign -v 4 game_unsigned.apk game_aligned.apk
           apksigner sign --ks release.keystore --ks-pass pass:hustler123 --out Hustler_Game.apk game_aligned.apk
 
       - name: Build Controller APK
         run: |
-          apktool b recon_src/ctrl -o ctrl_unsigned.apk
+          java -jar apktool.jar b recon_src/ctrl -o ctrl_unsigned.apk -c --use-aapt2
           zipalign -v 4 ctrl_unsigned.apk ctrl_aligned.apk
           apksigner sign --ks release.keystore --ks-pass pass:hustler123 --out Hustler_Controller.apk ctrl_aligned.apk
 
