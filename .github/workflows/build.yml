@@ -19,20 +19,27 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y apktool zipalign apksigner
 
-      - name: Decode Keystore
-        run: echo "${{ secrets.KEYSTORE_B64 }}" | base64 -d > release.keystore
+      - name: Setup Keystore
+        run: |
+          if [ -z "${{ secrets.KEYSTORE_B64 }}" ]; then
+            echo "⚠️ Secret not found. Generating temporary keystore..."
+            keytool -genkey -v -keystore release.keystore -alias hustler -keyalg RSA -keysize 2048 -validity 10000 -storepass hustler123 -keypass hustler123 -dname "CN=Hustler, OU=Dev, O=Hustler, L=IN, S=IN, C=IN"
+          else
+            echo "✅ Secret found. Decoding..."
+            echo "${{ secrets.KEYSTORE_B64 }}" | base64 -d > release.keystore
+          fi
 
       - name: Build Game APK
         run: |
           apktool b recon_src/game -o game_unsigned.apk
           zipalign -v 4 game_unsigned.apk game_aligned.apk
-          apksigner sign --ks release.keystore --ks-pass pass:${{ secrets.KEYSTORE_PASS }} --out Hustler_Game.apk game_aligned.apk
+          apksigner sign --ks release.keystore --ks-pass pass:hustler123 --out Hustler_Game.apk game_aligned.apk
 
       - name: Build Controller APK
         run: |
           apktool b recon_src/ctrl -o ctrl_unsigned.apk
           zipalign -v 4 ctrl_unsigned.apk ctrl_aligned.apk
-          apksigner sign --ks release.keystore --ks-pass pass:${{ secrets.KEYSTORE_PASS }} --out Hustler_Controller.apk ctrl_aligned.apk
+          apksigner sign --ks release.keystore --ks-pass pass:hustler123 --out Hustler_Controller.apk ctrl_aligned.apk
 
       - name: Create Release
         uses: softprops/action-gh-release@v2
