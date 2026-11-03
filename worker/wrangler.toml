@@ -1,0 +1,9 @@
+name = "hustler-api"
+main = "src/index.js"
+compatibility_date = "2024-11-01"
+account_id = "363c74efb9317fc0c348b1c7f39d936a"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "hustler_db"
+database_id = "297b3af1-f98a-4fa7-b4f7-3e0dfc66628b"

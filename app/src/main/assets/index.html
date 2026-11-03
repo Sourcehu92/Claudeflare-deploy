@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<title>LudoX</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div id="app">
+  <div id="splash" class="screen active">
+    <div class="logo">Ludo<span>X</span></div>
+    <div class="tagline">ROLL . RACE . RULE</div>
+    <div class="loader"></div>
+  </div>
+  <div id="login" class="screen">
+    <div class="card">
+      <h1>Ludo<span>X</span></h1>
+      <input id="loginUser" placeholder="Username">
+      <input id="loginPass" type="password" placeholder="Password">
+      <button class="btn primary" onclick="UI.login()">Login</button>
+      <button class="btn ghost" onclick="UI.show('signup')">Create Account</button>
+      <button class="btn text" onclick="UI.guest()">Guest</button>
+      <div id="loginMsg" class="msg"></div>
+    </div>
+  </div>
+  <div id="signup" class="screen">
+    <div class="card">
+      <h1>Sign Up</h1>
+      <input id="signUser" placeholder="Username">
+      <input id="signPass" type="password" placeholder="Password (min 4)">
+      <input id="signPass2" type="password" placeholder="Confirm">
+      <button class="btn primary" onclick="UI.signup()">Create</button>
+      <button class="btn ghost" onclick="UI.show('login')">Back</button>
+      <div id="signMsg" class="msg"></div>
+    </div>
+  </div>
+  <div id="home" class="screen">
+    <div class="home-header">
+      <div class="avatar">&#128100;</div>
+      <div class="user-info">
+        <div id="homeName">Guest</div>
+        <div class="coins">&#129689; <span id="homeCoins">0</span></div>
+      </div>
+      <div class="stats">
+        <div><b id="homeWins">0</b><small>W</small></div>
+        <div><b id="homeLosses">0</b><small>L</small></div>
+      </div>
+      <button class="icon-btn" id="soundBtn" onclick="UI.toggleSound()">&#128266;</button>
+      <button class="icon-btn" id="hapticBtn" onclick="UI.toggleHaptic()">&#128243;</button>
+    </div>
+    <div class="mode-grid">
+      <div class="mode-card" onclick="UI.startGame(2)"><div class="mode-icon">2P</div>2 Players</div>
+      <div class="mode-card" onclick="UI.startGame(3)"><div class="mode-icon">3P</div>3 Players</div>
+      <div class="mode-card" onclick="UI.startGame(4)"><div class="mode-icon">4P</div>4 Players</div>
+      <div class="mode-card" onclick="UI.startGame(4,true)"><div class="mode-icon">BOT</div>vs Bots</div>
+    </div>
+    <div class="daily-bonus" onclick="UI.dailyBonus()">&#127873; Daily Bonus - <span id="bonusStatus">Claim</span></div>
+    <div class="ctrl-status"><span id="wsDot" class="dot offline"></span><span id="wsLabel">Controller offline</span></div>
+  </div>
+  <div id="game" class="screen">
+    <div class="game-top">
+      <button class="icon-btn" onclick="UI.quitGame()">X</button>
+      <div id="turnLabel">Red turn</div>
+      <div id="dice" class="dice">&#127922;</div>
+    </div>
+    <div class="board-wrap"><canvas id="board"></canvas></div>
+    <div class="players-bar" id="playersBar"></div>
+    <div class="game-bottom"><button class="btn primary" id="rollBtn" onclick="UI.roll()">ROLL DICE</button></div>
+  </div>
+  <div id="result" class="screen">
+    <div class="result-card">
+      <div class="trophy">&#127942;</div>
+      <h2 id="resultTitle">You Win!</h2>
+      <div class="result-stats">
+        <div><b id="resWins">0</b><small>WINS</small></div>
+        <div><b id="resLosses">0</b><small>LOSSES</small></div>
+        <div><b id="resCoins">0</b><small>COINS</small></div>
+      </div>
+      <button class="btn primary" onclick="UI.show('home')">Home</button>
+    </div>
+  </div>
+  <div id="toast" class="toast"></div>
+</div>
+<script src="js/board.js"></script>
+<script src="js/rules.js"></script>
+<script src="js/ai.js"></script>
+<script src="js/net.js"></script>
+<script src="js/ui.js"></script>
+<script src="js/main.js"></script>
+</body>
+</html>

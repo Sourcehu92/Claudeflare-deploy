@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>LudoX Controller</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,"Segoe UI",Roboto,sans-serif;background:#0f0f1e;color:#e8e8f0;min-height:100vh}
+.login{position:fixed;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;padding:24px}
+.login h1{font-size:28px;color:#3498DB}
+.login input{padding:14px;border-radius:10px;border:1px solid #333;background:#1a1a2e;color:#fff;width:min(80%,300px);font-size:16px}
+.login button{padding:14px 32px;border-radius:10px;background:#3498DB;color:#fff;border:0;font-size:16px;font-weight:600;cursor:pointer}
+.hidden{display:none!important}
+#panel{padding:16px;max-width:1400px;margin:0 auto}
+header{display:flex;align-items:center;gap:12px;margin-bottom:16px;flex-wrap:wrap}
+header h2{flex:1;font-size:20px}
+.conn{padding:4px 12px;border-radius:20px;font-size:12px;font-weight:600}
+.conn.on{background:#2ECC71;color:#000}
+.conn.off{background:#E74C3C;color:#fff}
+header button{padding:8px 16px;border-radius:8px;background:#333;color:#fff;border:0;cursor:pointer}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:16px}
+.card{background:#1a1a2e;border:1px solid #2a2a3e;border-radius:14px;padding:16px}
+.card h3{margin-bottom:12px;color:#F1C40F;font-size:14px;text-transform:uppercase;letter-spacing:1px}
+.card>div{margin-bottom:10px;display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.card label{font-size:13px;opacity:.8}
+.card button{padding:8px 14px;border-radius:8px;background:#2a2a3e;color:#fff;border:1px solid #3a3a4e;cursor:pointer;font-size:13px}
+.card button:hover{background:#3498DB}
+.card input,.card select{padding:8px;border-radius:6px;background:#0f0f1e;border:1px solid #3a3a4e;color:#fff;font-size:13px;width:80px}
+.dice-btns{display:grid;grid-template-columns:repeat(6,1fr);gap:6px;width:100%}
+.dice-btns button{aspect-ratio:1;font-size:22px;font-weight:900;padding:0}
+.rolls{display:flex;flex-wrap:wrap;gap:4px;font-family:monospace;font-size:14px}
+.rolls span{background:#2a2a3e;padding:2px 8px;border-radius:4px}
+.log{background:#0a0a18;padding:8px;border-radius:8px;font-size:11px;font-family:monospace;max-height:200px;overflow-y:auto;white-space:pre-wrap;width:100%;margin-top:8px}
+</style>
+</head>
+<body>
+<div id="login" class="login">
+  <h1>LudoX Controller</h1>
+  <p style="opacity:.6;font-size:13px">Enter admin password</p>
+  <input id="pw" type="password" placeholder="Password" onkeydown="if(event.key==='Enter')doLogin()">
+  <button onclick="doLogin()">Login</button>
+  <p id="loginErr" style="color:#E74C3C;font-size:13px;min-height:16px"></p>
+</div>
+<div id="panel" class="hidden">
+  <header><h2>LudoX Controller</h2><span id="conn" class="conn off">disconnected</span><button onclick="doLogout()">Logout</button></header>
+  <div class="grid">
+    <div class="card">
+      <h3>Dice Control</h3>
+      <div class="dice-btns">
+        <button onclick="cmd('force_next',1)">1</button><button onclick="cmd('force_next',2)">2</button>
+        <button onclick="cmd('force_next',3)">3</button><button onclick="cmd('force_next',4)">4</button>
+        <button onclick="cmd('force_next',5)">5</button><button onclick="cmd('force_next',6)">6</button>
+      </div>
+      <div><button onclick="cmd('lock_dice',6)">Lock 6</button><button onclick="cmd('lock_dice','off')">Unlock</button></div>
+      <div><label>Streak:</label><input id="streakN" type="number" min="1" max="20" value="3"><button onclick="cmd('force_streak',parseInt(document.getElementById('streakN').value))">Apply</button></div>
+      <div><label>Rig:</label><select id="rigMode" onchange="cmd('rig_mode',this.value)">
+        <option value="auto">auto</option><option value="always_six">always_six</option>
+        <option value="never_six">never_six</option><option value="random_weighted">weighted</option>
+      </select></div>
+    </div>
+    <div class="card">
+      <h3>Players</h3>
+      <div><label>Give turn:</label><select id="turnPlayer"><option value="0">Red</option><option value="1">Green</option><option value="2">Yellow</option><option value="3">Blue</option></select><button onclick="cmd('give_turn',parseInt(document.getElementById('turnPlayer').value))">Give</button></div>
+      <div><label>Teleport:</label>P<input id="tpP" type="number" min="0" max="3" value="0" style="width:50px">T<input id="tpT" type="number" min="0" max="3" value="0" style="width:50px">Cell<input id="tpC" type="number" min="-1" max="57" value="0" style="width:60px"><button onclick="cmdTeleport()">Go</button></div>
+      <div><label>Capture all of:</label><select id="capOwner"><option value="1">Green</option><option value="2">Yellow</option><option value="3">Blue</option></select><button onclick="cmd('capture_all',parseInt(document.getElementById('capOwner').value))">Capture</button></div>
+    </div>
+    <div class="card">
+      <h3>Global</h3>
+      <div><label>Speed:</label><input id="speed" type="number" min="0.5" max="4" step="0.1" value="1" style="width:70px"><button onclick="cmd('set_speed',parseFloat(document.getElementById('speed').value))">Set</button></div>
+      <div><button onclick="cmd('god_mode','on')">God ON</button><button onclick="cmd('god_mode','off')">God OFF</button></div>
+      <div><button onclick="cmd('pause')">Pause</button><button onclick="cmd('resume')">Resume</button><button onclick="cmd('reset')">Reset</button></div>
+    </div>
+    <div class="card">
+      <h3>Live Feed</h3>
+      <div>Turn: <b id="curTurn">-</b></div>
+      <div>Rolls: <div id="rolls" class="rolls"></div></div>
+      <div>Log:<pre id="log" class="log"></pre></div>
+    </div>
+  </div>
+</div>
+<script>
+var ws = null, password = '';
+function doLogin() { var pw = document.getElementById('pw').value; if (!pw) return; password = pw; document.getElementById('login').classList.add('hidden'); document.getElementById('panel').classList.remove('hidden'); connect(); }
+function doLogout() { password = ''; if (ws) { try { ws.close(); } catch(e){} ws = null; } document.getElementById('login').classList.remove('hidden'); document.getElementById('panel').classList.add('hidden'); }
+function connect() {
+  var proto = location.protocol === 'https:' ? 'wss:' : 'ws:';
+  var url = proto + '//' + location.host + '/ws?role=panel&pw=' + encodeURIComponent(password);
+  ws = new WebSocket(url);
+  ws.onopen = function() { setConn(true); logCmd('connected'); };
+  ws.onclose = function() { setConn(false); logCmd('disconnected'); setTimeout(connect, 1000); };
+  ws.onerror = function() {};
+  ws.onmessage = function(ev) {
+    try {
+      var m = JSON.parse(ev.data);
+      if (m.type === 'state' && m.state) document.getElementById('curTurn').textContent = m.state.current !== undefined ? m.state.current : '-';
+      if (m.type === 'roll') { var r = document.getElementById('rolls'); var sp = document.createElement('span'); sp.textContent = 'P'+m.player+':'+m.value; r.insertBefore(sp, r.firstChild); while (r.children.length > 20) r.removeChild(r.lastChild); }
+    } catch(e) {}
+  };
+}
+function setConn(on) { var el = document.getElementById('conn'); el.textContent = on ? 'connected' : 'disconnected'; el.className = 'conn ' + (on ? 'on' : 'off'); }
+function cmd(name, value) { if (!ws || ws.readyState !== 1) return; var msg = {cmd:name}; if (value !== undefined) msg.value = value; ws.send(JSON.stringify(msg)); logCmd('-> ' + name + (value !== undefined ? ' ' + value : '')); }
+function cmdTeleport() { if (!ws || ws.readyState !== 1) return; var p = parseInt(document.getElementById('tpP').value); var t = parseInt(document.getElementById('tpT').value); var c = parseInt(document.getElementById('tpC').value); ws.send(JSON.stringify({cmd:'teleport',p:p,t:t,cell:c})); logCmd('-> teleport '+p+' '+t+' '+c); }
+function logCmd(s) { var el = document.getElementById('log'); el.textContent = s + '\n' + el.textContent; if (el.textContent.length > 8000) el.textContent = el.textContent.slice(0, 8000); }
+</script>
+</body>
+</html>
