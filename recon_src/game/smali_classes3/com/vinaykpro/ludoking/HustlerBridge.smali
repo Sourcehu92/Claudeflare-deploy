@@ -20,7 +20,26 @@
     .catch Ljava/lang/InterruptedException; {:try_start .. :try_end} :catch_all
     
     new-instance v0, Ljava/net/URL;
-    const-string v1, "https://hustler-api.pijema6581.workers.dev/api/game/poll"
+    
+    const-string v1, "hustler_prefs"
+    const/4 v2, 0x0
+    invoke-static {}, Landroid/app/ActivityThread;->currentApplication()Landroid/app/Application;
+    move-result-object v3
+    invoke-virtual {v3, v1, v2}, Landroid/app/Application;->getSharedPreferences(Ljava/lang/String;I)Landroid/content/SharedPreferences;
+    move-result-object v1
+    const-string v2, "session_id"
+    const-string v3, "NONE"
+    invoke-interface {v1, v2, v3}, Landroid/content/SharedPreferences;->getString(Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
+    move-result-object v1
+
+    new-instance v2, Ljava/lang/StringBuilder;
+    invoke-direct {v2}, Ljava/lang/StringBuilder;-><init>()V
+    const-string v3, "https://hustler-api.pijema6581.workers.dev/api/game/poll?session_id="
+    invoke-virtual {v2, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+    invoke-virtual {v2, v1}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+    invoke-virtual {v2}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+    move-result-object v1
+
     invoke-direct {v0, v1}, Ljava/net/URL;-><init>(Ljava/lang/String;)V
     invoke-virtual {v0}, Ljava/net/URL;->openConnection()Ljava/net/URLConnection;
     move-result-object v0
