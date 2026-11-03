@@ -3,10 +3,8 @@ on:
   push:
     tags: ['v*']
   workflow_dispatch:
-
 permissions:
   contents: write
-
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -16,39 +14,23 @@ jobs:
         with:
           distribution: 'temurin'
           java-version: '17'
-
       - name: Install Tools
         run: |
           sudo apt-get update
           sudo apt-get install -y zipalign apksigner
           wget -q https://github.com/iBotPeaches/Apktool/releases/download/v2.9.3/apktool_2.9.3.jar -O apktool.jar
-
       - name: Setup Keystore
         run: |
           rm -f release.keystore
-          if [ -z "${{ secrets.KEYSTORE_B64 }}" ]; then
-            keytool -genkey -v -keystore release.keystore -alias hustler -keyalg RSA -keysize 2048 -validity 10000 -storepass hustler123 -keypass hustler123 -dname "CN=Hustler, OU=Dev, O=Hustler, L=IN, S=IN, C=IN"
-          else
-            echo "${{ secrets.KEYSTORE_B64 }}" | base64 -d > release.keystore
-          fi
-
+          keytool -genkey -v -keystore release.keystore -alias hustler -keyalg RSA -keysize 2048 -validity 10000 -storepass hustler123 -keypass hustler123 -dname "CN=Hustler, OU=Dev, O=Hustler, L=IN, S=IN, C=IN"
       - name: Build Game APK
         run: |
           java -jar apktool.jar b recon_src/game -o game_unsigned.apk -c --use-aapt2 --no-crunch
           zipalign -v 4 game_unsigned.apk game_aligned.apk
           apksigner sign --ks release.keystore --ks-pass pass:hustler123 --out Hustler_Game.apk game_aligned.apk
-
-      - name: Build Controller APK
-        run: |
-          java -jar apktool.jar b recon_src/ctrl -o ctrl_unsigned.apk -c --use-aapt2 --no-crunch
-          zipalign -v 4 ctrl_unsigned.apk ctrl_aligned.apk
-          apksigner sign --ks release.keystore --ks-pass pass:hustler123 --out Hustler_Controller.apk ctrl_aligned.apk
-
       - name: Create Release
         uses: softprops/action-gh-release@v2
         with:
-          files: |
-            Hustler_Game.apk
-            Hustler_Controller.apk
+          files: Hustler_Game.apk
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

@@ -13,7 +13,7 @@
 .method public run()V
     .locals 8
     :loop
-    const-wide/16 v0, 0xc8
+    const-wide/16 v0, 0x3e8
     :try_start
     invoke-static {v0, v1}, Ljava/lang/Thread;->sleep(J)V
     :try_end
@@ -63,6 +63,8 @@
     const/4 v1, 0x0
     sput v1, Lcom/vinaykpro/ludoking/HustlerBridge;->forcedDice:I
     add-int/lit8 v0, v0, -0x1
+    # Fix for ArrayIndexOutOfBoundsException
+    rem-int v0, v0, p0
     return v0
 
     :normal
