@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <public type="color" name="bg_dark" id="0x7f010000" />
+    <public type="color" name="bg_main" id="0x7f010001" />
+    <public type="color" name="blue" id="0x7f010002" />
+    <public type="color" name="btn_connect" id="0x7f010003" />
+    <public type="color" name="btn_dark" id="0x7f010004" />
+    <public type="color" name="btn_gray" id="0x7f010005" />
+    <public type="color" name="btn_slate" id="0x7f010006" />
+    <public type="color" name="card_bg" id="0x7f010007" />
+    <public type="color" name="dark_gold" id="0x7f010008" />
+    <public type="color" name="gold" id="0x7f010009" />
+    <public type="color" name="input_bg" id="0x7f01000a" />
+    <public type="color" name="input_border" id="0x7f01000b" />
+    <public type="color" name="orange" id="0x7f01000c" />
+    <public type="color" name="player_cyan" id="0x7f01000d" />
+    <public type="color" name="player_green" id="0x7f01000e" />
+    <public type="color" name="player_red" id="0x7f01000f" />
+    <public type="color" name="player_yellow" id="0x7f010010" />
+    <public type="color" name="spinner_bg" id="0x7f010011" />
+    <public type="color" name="text_dark_gray" id="0x7f010012" />
+    <public type="color" name="text_gray" id="0x7f010013" />
+    <public type="color" name="text_light" id="0x7f010014" />
+    <public type="color" name="text_white" id="0x7f010015" />
+    <public type="mipmap" name="ic_launcher" id="0x7f020000" />
+    <public type="string" name="app_name" id="0x7f030000" />
+    <public type="style" name="AppTheme" id="0x7f040000" />
+</resources>

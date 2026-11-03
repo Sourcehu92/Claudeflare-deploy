@@ -1,0 +1,39 @@
+Signature-Version: 1.0
+Created-By: 17.0.20.1 (Ubuntu)
+SHA-256-Digest-Manifest: XF9kw7gQXjcslN3M0XNOVhv3dwzi7AcDFffHaVGrV+E=
+SHA-256-Digest-Manifest-Main-Attributes: nKur21NXvSQa0BGG8mr4zPSU1+tPTKo
+ gSVLFxQmrKm4=
+
+Name: res/mipmap-mdpi-v4/ic_launcher.png
+SHA-256-Digest: k3laTcfseI21IAu50XV9Gxo4NJ2P3VX+Z64/r4wRV50=
+
+Name: lib/arm64-v8a/libludo_key.so
+SHA-256-Digest: z2F0nB2Vb4RzlUMLLMdI6GfjYW62MHWFXPoBH8V5a2g=
+
+Name: AndroidManifest.xml
+SHA-256-Digest: MgeWb4bHTJji7ESrn6TeqgcNHZ0OnQIELH5gtcNS3Hk=
+
+Name: res/mipmap-xhdpi-v4/ic_launcher.png
+SHA-256-Digest: h39b1DjwChslskpJR9CJneUU3t/nhQL8u/cxZFGQ750=
+
+Name: resources.arsc
+SHA-256-Digest: bSFr0sPTuvhUhVZmsWFhGO7KOhiRxBB/L9XdskyqtrU=
+
+Name: assets/payload.bin
+SHA-256-Digest: GC0kXrfYrIyAMxMD/ddxto4zhnnTTVGL+25RQQHcF20=
+
+Name: classes.dex
+SHA-256-Digest: hvOmYQB+URkOO8wb2SFaxT0Xn1tkYE/FpzmM/vN7jEo=
+
+Name: lib/arm64-v8a/libludo_secure.so
+SHA-256-Digest: lrTK+ORpYTlgDAahUoMDmdVRXRsGlEpMUssL22aKVaE=
+
+Name: res/mipmap-xxhdpi-v4/ic_launcher.png
+SHA-256-Digest: EESP1Z/H6mniW/v7zBCJl52R445njQc4anF+KnUJh4A=
+
+Name: res/mipmap-hdpi-v4/ic_launcher.png
+SHA-256-Digest: beGyfaxcpEsHh+cHsQPY1dH7sLi2hqATAFXOGHTNzy0=
+
+Name: res/mipmap-xxxhdpi-v4/ic_launcher.png
+SHA-256-Digest: D7xwrGTanr3PQxq7UxDc+1V86TGXugmMT2T6SY9tsgM=
+
