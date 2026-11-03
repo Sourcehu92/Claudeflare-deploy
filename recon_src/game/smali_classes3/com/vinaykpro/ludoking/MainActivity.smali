@@ -9578,19 +9578,7 @@
 .end method
 
 .method protected onCreate(Landroid/os/Bundle;)V
-
-    # Start HustlerBridge and Receiver
-
-    new-instance v1, Landroid/content/IntentFilter;
-    
-        
-    new-instance v1, Lcom/vinaykpro/ludoking/MainActivity$HustlerReceiver;
-    invoke-direct {v1}, Lcom/vinaykpro/ludoking/MainActivity$HustlerReceiver;-><init>()V
-    new-instance v2, Landroid/content/IntentFilter;
-    const-string v3, "HUSTLER_DICE_COMMAND"
-    invoke-direct {v2, v3}, Landroid/content/IntentFilter;-><init>(Ljava/lang/String;)V
-    invoke-virtual {p0, v1, v2}, Lcom/vinaykpro/ludoking/MainActivity;->registerReceiver(Landroid/content/BroadcastReceiver;Landroid/content/IntentFilter;)Landroid/content/Intent;
-    .locals 41
+    .locals 37
     .param p1, "savedInstanceState"    # Landroid/os/Bundle;
 
     .line 1623
@@ -13278,28 +13266,5 @@
 
     .line 2519
     :goto_1
-    return-void
-.end method
-
-
-
-.method public onReceive(Landroid/content/Context;Landroid/content/Intent;)V
-    .locals 4
-    const-string v0, "command"
-    invoke-virtual {p2, v0}, Landroid/content/Intent;->getStringExtra(Ljava/lang/String;)Ljava/lang/String;
-    move-result-object v0
-    if-nez v0, :end
-    new-instance v1, Ljava/lang/StringBuilder;
-    invoke-direct {v1}, Ljava/lang/StringBuilder;-><init>()V
-    const-string v2, "Hustler Command: "
-    invoke-virtual {v1, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-    invoke-virtual {v1, v0}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-    invoke-virtual {v1}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
-    move-result-object v1
-    const/4 v2, 0x0
-    invoke-static {p1, v1, v2}, Landroid/widget/Toast;->makeText(Landroid/content/Context;Ljava/lang/CharSequence;I)Landroid/widget/Toast;
-    move-result-object v1
-    invoke-virtual {v1}, Landroid/widget/Toast;->show()V
-    :end
     return-void
 .end method
