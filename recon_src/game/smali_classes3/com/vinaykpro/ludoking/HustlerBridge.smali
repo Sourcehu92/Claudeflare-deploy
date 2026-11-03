@@ -13,7 +13,7 @@
 .method public run()V
     .locals 8
     :loop
-    const-wide/16 v0, 0x7d0
+    const-wide/16 v0, 0xc8
     :try_start
     invoke-static {v0, v1}, Ljava/lang/Thread;->sleep(J)V
     :try_end
