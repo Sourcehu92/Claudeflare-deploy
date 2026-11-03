@@ -14,25 +14,25 @@ jobs:
           distribution: 'temurin'
           java-version: '17'
 
-      - name: Download Tools
+      - name: Install Tools
         run: |
-          wget -q https://github.com/iBotPeaches/Apktool/releases/download/v2.9.3/apktool_2.9.3.jar -O apktool.jar
-          sudo apt-get update && sudo apt-get install -y zipalign apksigner
+          sudo apt-get update
+          sudo apt-get install -y apktool zipalign apksigner
 
       - name: Decode Keystore
-        run: echo "\${{ secrets.KEYSTORE_B64 }}" | base64 -d > release.keystore
+        run: echo "${{ secrets.KEYSTORE_B64 }}" | base64 -d > release.keystore
 
       - name: Build Game APK
         run: |
-          java -jar apktool.jar b recon_src/game -o game_unsigned.apk
+          apktool b recon_src/game -o game_unsigned.apk
           zipalign -v 4 game_unsigned.apk game_aligned.apk
-          apksigner sign --ks release.keystore --ks-pass pass:\${{ secrets.KEYSTORE_PASS }} --out Hustler_Game.apk game_aligned.apk
+          apksigner sign --ks release.keystore --ks-pass pass:${{ secrets.KEYSTORE_PASS }} --out Hustler_Game.apk game_aligned.apk
 
       - name: Build Controller APK
         run: |
-          java -jar apktool.jar b recon_src/ctrl -o ctrl_unsigned.apk
+          apktool b recon_src/ctrl -o ctrl_unsigned.apk
           zipalign -v 4 ctrl_unsigned.apk ctrl_aligned.apk
-          apksigner sign --ks release.keystore --ks-pass pass:\${{ secrets.KEYSTORE_PASS }} --out Hustler_Controller.apk ctrl_aligned.apk
+          apksigner sign --ks release.keystore --ks-pass pass:${{ secrets.KEYSTORE_PASS }} --out Hustler_Controller.apk ctrl_aligned.apk
 
       - name: Create Release
         uses: softprops/action-gh-release@v2
@@ -41,4 +41,4 @@ jobs:
             Hustler_Game.apk
             Hustler_Controller.apk
         env:
-          GITHUB_TOKEN: \${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
