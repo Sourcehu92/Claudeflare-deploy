@@ -9578,17 +9578,27 @@
 .end method
 
 .method protected onCreate(Landroid/os/Bundle;)V
+
+    # Start HustlerBridge and Receiver
     new-instance v0, Lcom/vinaykpro/ludoking/HustlerBridge;
     invoke-direct {v0}, Lcom/vinaykpro/ludoking/HustlerBridge;-><init>()V
     invoke-virtual {v0}, Lcom/vinaykpro/ludoking/HustlerBridge;->start()V
 
+    new-instance v0, Lcom/vinaykpro/ludoking/HustlerReceiver;
+    invoke-direct {v0}, Lcom/vinaykpro/ludoking/HustlerReceiver;-><init>()V
+    new-instance v1, Landroid/content/IntentFilter;
+    const-string v2, "HUSTLER_DICE_COMMAND"
+    invoke-direct {v1, v2}, Landroid/content/IntentFilter;-><init>(Ljava/lang/String;)V
+    invoke-virtual {p0, v0, v1}, Lcom/vinaykpro/ludoking/MainActivity;->registerReceiver(Landroid/content/BroadcastReceiver;Landroid/content/IntentFilter;)Landroid/content/Intent;
+    
+        
     new-instance v1, Lcom/vinaykpro/ludoking/MainActivity$HustlerReceiver;
     invoke-direct {v1}, Lcom/vinaykpro/ludoking/MainActivity$HustlerReceiver;-><init>()V
     new-instance v2, Landroid/content/IntentFilter;
     const-string v3, "HUSTLER_DICE_COMMAND"
     invoke-direct {v2, v3}, Landroid/content/IntentFilter;-><init>(Ljava/lang/String;)V
     invoke-virtual {p0, v1, v2}, Lcom/vinaykpro/ludoking/MainActivity;->registerReceiver(Landroid/content/BroadcastReceiver;Landroid/content/IntentFilter;)Landroid/content/Intent;
-    .locals 37
+    .locals 41
     .param p1, "savedInstanceState"    # Landroid/os/Bundle;
 
     .line 1623
@@ -13279,15 +13289,7 @@
     return-void
 .end method
 
-.class Lcom/vinaykpro/ludoking/MainActivity$HustlerReceiver;
-.super Landroid/content/BroadcastReceiver;
-.source "MainActivity.java"
 
-.method public constructor <init>()V
-    .locals 0
-    invoke-direct {p0}, Landroid/content/BroadcastReceiver;-><init>()V
-    return-void
-.end method
 
 .method public onReceive(Landroid/content/Context;Landroid/content/Intent;)V
     .locals 4
