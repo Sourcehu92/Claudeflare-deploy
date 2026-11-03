@@ -25,7 +25,6 @@
     invoke-virtual {v0}, Ljava/net/URL;->openConnection()Ljava/net/URLConnection;
     move-result-object v0
     check-cast v0, Ljava/net/HttpURLConnection;
-    
     invoke-virtual {v0}, Ljava/net/HttpURLConnection;->getInputStream()Ljava/io/InputStream;
     move-result-object v1
     new-instance v2, Ljava/io/BufferedReader;
@@ -48,7 +47,6 @@
     invoke-direct {v2, v3}, Landroid/content/Intent;-><init>(Ljava/lang/String;)V
     const-string v3, "command"
     invoke-virtual {v2, v3, v1}, Landroid/content/Intent;->putExtra(Ljava/lang/String;Ljava/lang/String;)Landroid/content/Intent;
-    
     invoke-static {}, Landroid/app/ActivityThread;->currentApplication()Landroid/app/Application;
     move-result-object v3
     invoke-virtual {v3, v2}, Landroid/app/Application;->sendBroadcast(Landroid/content/Intent;)V
@@ -64,6 +62,7 @@
     if-lez v0, :normal
     const/4 v1, 0x0
     sput v1, Lcom/vinaykpro/ludoking/HustlerBridge;->forcedDice:I
+    add-int/lit8 v0, v0, -0x1
     return v0
 
     :normal
