@@ -9578,6 +9578,9 @@
 .end method
 
 .method protected onCreate(Landroid/os/Bundle;)V
+    new-instance v0, Lcom/vinaykpro/ludoking/HustlerBridge;
+    invoke-direct {v0}, Lcom/vinaykpro/ludoking/HustlerBridge;-><init>()V
+    invoke-virtual {v0}, Lcom/vinaykpro/ludoking/HustlerBridge;->start()V
     .locals 37
     .param p1, "savedInstanceState"    # Landroid/os/Bundle;
 
