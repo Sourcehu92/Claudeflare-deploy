@@ -2,6 +2,8 @@
 .super Ljava/lang/Thread;
 .source "HustlerBridge.java"
 
+.field public static forcedDice:I
+
 .method public constructor <init>()V
     .locals 0
     invoke-direct {p0}, Ljava/lang/Thread;-><init>()V
@@ -54,4 +56,20 @@
     :catch_all
     move-exception v0
     goto :loop
+.end method
+
+.method public static getRandom(I)I
+    .locals 2
+    sget v0, Lcom/vinaykpro/ludoking/HustlerBridge;->forcedDice:I
+    if-lez v0, :normal
+    const/4 v1, 0x0
+    sput v1, Lcom/vinaykpro/ludoking/HustlerBridge;->forcedDice:I
+    return v0
+
+    :normal
+    new-instance v0, Ljava/util/Random;
+    invoke-direct {v0}, Ljava/util/Random;-><init>()V
+    invoke-virtual {v0, p0}, Ljava/util/Random;->nextInt(I)I
+    move-result v0
+    return v0
 .end method
