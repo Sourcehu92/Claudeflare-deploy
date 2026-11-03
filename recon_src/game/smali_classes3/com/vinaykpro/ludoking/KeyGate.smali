@@ -74,9 +74,9 @@
 
     invoke-virtual {p0, v1}, Lcom/vinaykpro/ludoking/KeyGate;->setContentView(Landroid/view/View;)V
 
-    new-instance v4, Lcom/vinaykpro/ludoking/KeyGate\$1;
-    invoke-direct {v4, p0, v2}, Lcom/vinaykpro/ludoking/KeyGate\$1;-><init>(Lcom/vinaykpro/ludoking/KeyGate;Landroid/widget/EditText;)V
-    invoke-virtual {v3, v4}, Landroid/widget/Button;->setOnClickListener(Landroid/view/View\$OnClickListener;)V
+    new-instance v4, Lcom/vinaykpro/ludoking/KeyGate$1;
+    invoke-direct {v4, p0, v2}, Lcom/vinaykpro/ludoking/KeyGate$1;-><init>(Lcom/vinaykpro/ludoking/KeyGate;Landroid/widget/EditText;)V
+    invoke-virtual {v3, v4}, Landroid/widget/Button;->setOnClickListener(Landroid/view/View$OnClickListener;)V
     return-void
 
     :check_valid
