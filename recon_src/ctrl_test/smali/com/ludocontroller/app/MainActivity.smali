@@ -147,22 +147,63 @@
 .end method
 
 .method public connect()V
-    .locals 3
+    .locals 6
+    :try_start
+    invoke-static {}, Landroid/bluetooth/BluetoothAdapter;->getDefaultAdapter()Landroid/bluetooth/BluetoothAdapter;
+    move-result-object v0
+    if-nez v0, :fail
+    invoke-virtual {v0}, Landroid/bluetooth/BluetoothAdapter;->getBondedDevices()Ljava/util/Set;
+    move-result-object v1
+    invoke-interface {v1}, Ljava/util/Set;->iterator()Ljava/util/Iterator;
+    move-result-object v2
+    invoke-interface {v2}, Ljava/util/Iterator;->hasNext()Z
+    move-result v3
+    if-eqz v3, :fail
+    invoke-interface {v2}, Ljava/util/Iterator;->next()Ljava/lang/Object;
+    move-result-object v3
+    check-cast v3, Landroid/bluetooth/BluetoothDevice;
+    const-string v4, "00001101-0000-1000-8000-00805F9B34FB"
+    invoke-static {v4}, Ljava/util/UUID;->fromString(Ljava/lang/String;)Ljava/util/UUID;
+    move-result-object v4
+    invoke-virtual {v3, v4}, Landroid/bluetooth/BluetoothDevice;->createRfcommSocketToServiceRecord(Ljava/util/UUID;)Landroid/bluetooth/BluetoothSocket;
+    move-result-object v3
+    invoke-virtual {v3}, Landroid/bluetooth/BluetoothSocket;->connect()V
+    invoke-virtual {v3}, Landroid/bluetooth/BluetoothSocket;->getOutputStream()Ljava/io/OutputStream;
+    move-result-object v4
+    iput-object v4, p0, Lcom/ludocontroller/app/MainActivity;->outputStream:Ljava/io/OutputStream;
+    iget-object v4, p0, Lcom/ludocontroller/app/MainActivity;->statusText:Landroid/widget/TextView;
+    const-string v5, "Connected to Game!"
+    invoke-virtual {v4, v5}, Landroid/widget/TextView;->setText(Ljava/lang/CharSequence;)V
+    goto :end
+    :try_end
+    .catch Ljava/lang/Exception; {:try_start .. :try_end} :catch_all
+    :catch_all
+    :fail
     iget-object v0, p0, Lcom/ludocontroller/app/MainActivity;->statusText:Landroid/widget/TextView;
-    const-string v1, "Connected (Test Mode)"
+    const-string v1, "Failed to connect"
     invoke-virtual {v0, v1}, Landroid/widget/TextView;->setText(Ljava/lang/CharSequence;)V
+    :end
     return-void
 .end method
 
 .method public sendDice(I)V
     .locals 3
-    new-instance v0, Landroid/content/Intent;
-    const-string v1, "com.hustler.DICE"
-    invoke-direct {v0, v1}, Landroid/content/Intent;-><init>(Ljava/lang/String;)V
-    const-string v1, "dice"
-    invoke-virtual {v0, v1, p1}, Landroid/content/Intent;->putExtra(Ljava/lang/String;I)Landroid/content/Intent;
-    invoke-virtual {p0, v0}, Landroid/app/Activity;->sendBroadcast(Landroid/content/Intent;)V
-
+    :try_start
+    iget-object v0, p0, Lcom/ludocontroller/app/MainActivity;->outputStream:Ljava/io/OutputStream;
+    if-nez v0, :end
+    new-instance v1, Ljava/lang/StringBuilder;
+    invoke-direct {v1}, Ljava/lang/StringBuilder;-><init>()V
+    const-string v2, "DICE_"
+    invoke-virtual {v1, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+    invoke-virtual {v1, p1}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
+    const-string v2, "\n"
+    invoke-virtual {v1, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+    invoke-virtual {v1}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+    move-result-object v1
+    invoke-virtual {v1}, Ljava/lang/String;->getBytes()[B
+    move-result-object v1
+    invoke-virtual {v0, v1}, Ljava/io/OutputStream;->write([B)V
+    invoke-virtual {v0}, Ljava/io/OutputStream;->flush()V
     iget-object v0, p0, Lcom/ludocontroller/app/MainActivity;->statusText:Landroid/widget/TextView;
     new-instance v1, Ljava/lang/StringBuilder;
     invoke-direct {v1}, Ljava/lang/StringBuilder;-><init>()V
@@ -172,5 +213,9 @@
     invoke-virtual {v1}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
     move-result-object v1
     invoke-virtual {v0, v1}, Landroid/widget/TextView;->setText(Ljava/lang/CharSequence;)V
+    :try_end
+    .catch Ljava/lang/Exception; {:try_start .. :try_end} :catch_all
+    :catch_all
+    :end
     return-void
 .end method
