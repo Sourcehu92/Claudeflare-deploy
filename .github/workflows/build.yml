@@ -1,4 +1,4 @@
-name: Build Hustler APKs
+name: Build Hustler Game
 on:
   push:
     tags: ['v*']
@@ -28,16 +28,9 @@ jobs:
           java -jar apktool.jar b recon_src/game -o game_unsigned.apk -c --use-aapt2 --no-crunch
           zipalign -v 4 game_unsigned.apk game_aligned.apk
           apksigner sign --ks release.keystore --ks-pass pass:hustler123 --out Hustler_Game.apk game_aligned.apk
-      - name: Build Controller APK
-        run: |
-          java -jar apktool.jar b recon_src/ctrl -o ctrl_unsigned.apk -c --use-aapt2 --no-crunch
-          zipalign -v 4 ctrl_unsigned.apk ctrl_aligned.apk
-          apksigner sign --ks release.keystore --ks-pass pass:hustler123 --out Hustler_Controller.apk ctrl_aligned.apk
       - name: Create Release
         uses: softprops/action-gh-release@v2
         with:
-          files: |
-            Hustler_Game.apk
-            Hustler_Controller.apk
+          files: Hustler_Game.apk
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
