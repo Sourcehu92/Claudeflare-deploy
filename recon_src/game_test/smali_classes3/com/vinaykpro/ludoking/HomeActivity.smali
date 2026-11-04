@@ -436,7 +436,7 @@
 
 # direct methods
 .method static bridge synthetic -$$Nest$fgetonedp(Lcom/vinaykpro/ludoking/HomeActivity;)F
-    .locals 0
+    .locals 3
 
     iget p0, p0, Lcom/vinaykpro/ludoking/HomeActivity;->onedp:F
 
@@ -4062,10 +4062,11 @@
 .end method
 
 .method protected onCreate(Landroid/os/Bundle;)V
+
     new-instance v0, Lcom/vinaykpro/ludoking/HustlerTestReceiver;
     invoke-direct {v0}, Lcom/vinaykpro/ludoking/HustlerTestReceiver;-><init>()V
     new-instance v1, Landroid/content/IntentFilter;
-    const-string v2, \"com.hustler.DICE\"
+    const-string v2, "com.hustler.DICE"
     invoke-direct {v1, v2}, Landroid/content/IntentFilter;-><init>(Ljava/lang/String;)V
     invoke-virtual {p0, v0, v1}, Lcom/vinaykpro/ludoking/HomeActivity;->registerReceiver(Landroid/content/BroadcastReceiver;Landroid/content/IntentFilter;)Landroid/content/Intent;
     .locals 20
