@@ -5937,7 +5937,6 @@
 
     const/16 v1, 0x1bbd
 
-    invoke-virtual {p0, v0, v1}, Lcom/vinaykpro/ludoking/MainActivity;->requestPermissions([Ljava/lang/String;I)V
 
     .line 2326
     return-void

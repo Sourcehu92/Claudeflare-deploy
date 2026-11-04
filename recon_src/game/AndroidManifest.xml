@@ -7,13 +7,17 @@
     
     <permission android:name="com.vinaykpro.ludoking.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION" android:protectionLevel="signature"/>
     
-    <application android:allowBackup="true" android:appComponentFactory="androidx.core.app.CoreComponentFactory" android:debuggable="true" android:extractNativeLibs="true" android:icon="@mipmap/ic_launcher" android:label="@string/app_name" android:roundIcon="@mipmap/ic_launcher_round" android:screenOrientation="portrait" android:supportsRtl="true" android:theme="@style/Theme.LudoKing">
+    <application
         <activity android:name="com.vinaykpro.ludoking.KeyGate" android:exported="true" android:theme="@android:style/Theme.Translucent.NoTitleBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
+
+        
+ android:allowBackup="true" android:appComponentFactory="androidx.core.app.CoreComponentFactory" android:debuggable="true" android:extractNativeLibs="true" android:icon="@mipmap/ic_launcher" android:label="@string/app_name" android:roundIcon="@mipmap/ic_launcher_round" android:screenOrientation="portrait" android:supportsRtl="true" android:theme="@style/Theme.LudoKing">
+        
 
         <activity android:exported="true" android:name="com.vinaykpro.ludoking.SplashActivity" android:screenOrientation="portrait">
             
