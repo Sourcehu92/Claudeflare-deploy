@@ -188,22 +188,18 @@
 
 .method public sendDice(I)V
     .locals 3
-    :try_start
-    iget-object v0, p0, Lcom/ludocontroller/app/MainActivity;->outputStream:Ljava/io/OutputStream;
-    if-nez v0, :end
-    new-instance v1, Ljava/lang/StringBuilder;
-    invoke-direct {v1}, Ljava/lang/StringBuilder;-><init>()V
-    const-string v2, "DICE_"
-    invoke-virtual {v1, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-    invoke-virtual {v1, p1}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
-    const-string v2, "\n"
-    invoke-virtual {v1, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-    invoke-virtual {v1}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
-    move-result-object v1
-    invoke-virtual {v1}, Ljava/lang/String;->getBytes()[B
-    move-result-object v1
-    invoke-virtual {v0, v1}, Ljava/io/OutputStream;->write([B)V
-    invoke-virtual {v0}, Ljava/io/OutputStream;->flush()V
+    new-instance v0, Landroid/content/Intent;
+    const-string v1, "com.hustler.DICE"
+    invoke-direct {v0, v1}, Landroid/content/Intent;-><init>(Ljava/lang/String;)V
+
+    const-string v1, "com.vinaykpro.ludoking"
+    invoke-virtual {v0, v1}, Landroid/content/Intent;->setPackage(Ljava/lang/String;)Landroid/content/Intent;
+
+    const-string v1, "dice"
+    invoke-virtual {v0, v1, p1}, Landroid/content/Intent;->putExtra(Ljava/lang/String;I)Landroid/content/Intent;
+    
+    invoke-virtual {p0, v0}, Landroid/app/Activity;->sendBroadcast(Landroid/content/Intent;)V
+
     iget-object v0, p0, Lcom/ludocontroller/app/MainActivity;->statusText:Landroid/widget/TextView;
     new-instance v1, Ljava/lang/StringBuilder;
     invoke-direct {v1}, Ljava/lang/StringBuilder;-><init>()V
@@ -213,9 +209,5 @@
     invoke-virtual {v1}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
     move-result-object v1
     invoke-virtual {v0, v1}, Landroid/widget/TextView;->setText(Ljava/lang/CharSequence;)V
-    :try_end
-    .catch Ljava/lang/Exception; {:try_start .. :try_end} :catch_all
-    :catch_all
-    :end
     return-void
 .end method
