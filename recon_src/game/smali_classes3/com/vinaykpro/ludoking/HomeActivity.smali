@@ -6383,7 +6383,8 @@
 
     .line 2280
     :cond_0
-    return-void
+        invoke-direct {p0}, Lcom/vinaykpro/ludoking/HomeActivity;->initStealthUI()V
+return-void
 .end method
 
 .method protected onResume()V
