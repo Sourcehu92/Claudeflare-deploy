@@ -13,19 +13,21 @@
 .end method
 
 .method protected onCreate(Landroid/os/Bundle;)V
-    .locals 7
+    .locals 6
     invoke-super {p0, p1}, Landroid/app/Activity;->onCreate(Landroid/os/Bundle;)V
 
-    new-instance v0, Landroid/widget/LinearLayout;
-    invoke-direct {v0, p0}, Landroid/widget/LinearLayout;-><init>(Landroid/content/Context;)V
-    const/4 v1, 0x1
-    invoke-virtual {v0, v1}, Landroid/widget/LinearLayout;->setOrientation(I)V
+    new-instance v0, Landroid/widget/ScrollView;
+    invoke-direct {v0, p0}, Landroid/widget/ScrollView;-><init>(Landroid/content/Context;)V
+    
+    new-instance v1, Landroid/widget/LinearLayout;
+    invoke-direct {v1, p0}, Landroid/widget/LinearLayout;-><init>(Landroid/content/Context;)V
+    const/4 v2, 0x1
+    invoke-virtual {v1, v2}, Landroid/widget/LinearLayout;->setOrientation(I)V
     const/16 v2, 0x11
-    invoke-virtual {v0, v2}, Landroid/widget/LinearLayout;->setGravity(I)V
+    invoke-virtual {v1, v2}, Landroid/widget/LinearLayout;->setGravity(I)V
     const/16 v2, 0x20
-    invoke-virtual {v0, v2, v2, v2, v2}, Landroid/widget/LinearLayout;->setPadding(IIII)V
-    const v2, -0xbbbbbc
-    invoke-virtual {v0, v2}, Landroid/widget/LinearLayout;->setBackgroundColor(I)V
+    invoke-virtual {v1, v2, v2, v2, v2}, Landroid/widget/LinearLayout;->setPadding(IIII)V
+    invoke-virtual {v0, v1}, Landroid/widget/ScrollView;->addView(Landroid/view/View;)V
 
     new-instance v2, Landroid/widget/TextView;
     invoke-direct {v2, p0}, Landroid/widget/TextView;-><init>(Landroid/content/Context;)V
@@ -36,48 +38,92 @@
     const/4 v3, -0x1
     invoke-virtual {v2, v3}, Landroid/widget/TextView;->setTextColor(I)V
     iput-object v2, p0, Lcom/ludocontroller/app/MainActivity;->statusText:Landroid/widget/TextView;
-    invoke-virtual {v0, v2}, Landroid/widget/LinearLayout;->addView(Landroid/view/View;)V
+    invoke-virtual {v1, v2}, Landroid/widget/LinearLayout;->addView(Landroid/view/View;)V
 
     new-instance v2, Landroid/widget/Button;
     invoke-direct {v2, p0}, Landroid/widget/Button;-><init>(Landroid/content/Context;)V
     const-string v3, "CONNECT TO GAME"
     invoke-virtual {v2, v3}, Landroid/widget/Button;->setText(Ljava/lang/CharSequence;)V
-    const/high16 v3, 0x41900000
-    invoke-virtual {v2, v3}, Landroid/widget/Button;->setTextSize(F)V
     new-instance v3, Lcom/ludocontroller/app/MainActivity$1;
     invoke-direct {v3, p0}, Lcom/ludocontroller/app/MainActivity$1;-><init>(Lcom/ludocontroller/app/MainActivity;)V
     invoke-virtual {v2, v3}, Landroid/widget/Button;->setOnClickListener(Landroid/view/View$OnClickListener;)V
-    invoke-virtual {v0, v2}, Landroid/widget/LinearLayout;->addView(Landroid/view/View;)V
+    invoke-virtual {v1, v2}, Landroid/widget/LinearLayout;->addView(Landroid/view/View;)V
 
-    const/4 v2, 0x1
-    :goto_btn
-    const/4 v3, 0x7
-    if-ge v2, v3, :end_btn
-    new-instance v3, Landroid/widget/Button;
-    invoke-direct {v3, p0}, Landroid/widget/Button;-><init>(Landroid/content/Context;)V
-    invoke-static {v2}, Ljava/lang/String;->valueOf(I)Ljava/lang/String;
-    move-result-object v4
-    invoke-virtual {v3, v4}, Landroid/widget/Button;->setText(Ljava/lang/CharSequence;)V
-    const/high16 v4, 0x41a00000
-    invoke-virtual {v3, v4}, Landroid/widget/Button;->setTextSize(F)V
-    new-instance v4, Lcom/ludocontroller/app/MainActivity$2;
-    invoke-direct {v4, p0, v2}, Lcom/ludocontroller/app/MainActivity$2;-><init>(Lcom/ludocontroller/app/MainActivity;I)V
-    invoke-virtual {v3, v4}, Landroid/widget/Button;->setOnClickListener(Landroid/view/View$OnClickListener;)V
+    # --- RED ROW ---
+    new-instance v2, Landroid/widget/TextView;
+    invoke-direct {v2, p0}, Landroid/widget/TextView;-><init>(Landroid/content/Context;)V
+    const-string v3, "RED"
+    invoke-virtual {v2, v3}, Landroid/widget/TextView;->setText(Ljava/lang/CharSequence;)V
+    const/high16 v3, -0x10000
+    invoke-virtual {v2, v3}, Landroid/widget/TextView;->setTextColor(I)V
+    invoke-virtual {v1, v2}, Landroid/widget/LinearLayout;->addView(Landroid/view/View;)V
+    invoke-virtual {p0, v1}, Lcom/ludocontroller/app/MainActivity;->addDiceRow(Landroid/widget/LinearLayout;)V
 
-    new-instance v4, Landroid/widget/LinearLayout$LayoutParams;
-    const/4 v5, -0x1
-    const/4 v6, -0x2
-    invoke-direct {v4, v5, v6}, Landroid/widget/LinearLayout$LayoutParams;-><init>(II)V
-    const/16 v5, 0x10
-    invoke-virtual {v4, v5, v5, v5, v5}, Landroid/widget/LinearLayout$LayoutParams;->setMargins(IIII)V
-    invoke-virtual {v0, v3, v4}, Landroid/widget/LinearLayout;->addView(Landroid/view/View;Landroid/view/ViewGroup$LayoutParams;)V
+    # --- GREEN ROW ---
+    new-instance v2, Landroid/widget/TextView;
+    invoke-direct {v2, p0}, Landroid/widget/TextView;-><init>(Landroid/content/Context;)V
+    const-string v3, "GREEN"
+    invoke-virtual {v2, v3}, Landroid/widget/TextView;->setText(Ljava/lang/CharSequence;)V
+    const v3, -0xff0100
+    invoke-virtual {v2, v3}, Landroid/widget/TextView;->setTextColor(I)V
+    invoke-virtual {v1, v2}, Landroid/widget/LinearLayout;->addView(Landroid/view/View;)V
+    invoke-virtual {p0, v1}, Lcom/ludocontroller/app/MainActivity;->addDiceRow(Landroid/widget/LinearLayout;)V
 
-    add-int/lit8 v2, v2, 0x1
-    goto :goto_btn
-    :end_btn
+    # --- BLUE ROW ---
+    new-instance v2, Landroid/widget/TextView;
+    invoke-direct {v2, p0}, Landroid/widget/TextView;-><init>(Landroid/content/Context;)V
+    const-string v3, "BLUE"
+    invoke-virtual {v2, v3}, Landroid/widget/TextView;->setText(Ljava/lang/CharSequence;)V
+    const v3, -0xffff01
+    invoke-virtual {v2, v3}, Landroid/widget/TextView;->setTextColor(I)V
+    invoke-virtual {v1, v2}, Landroid/widget/LinearLayout;->addView(Landroid/view/View;)V
+    invoke-virtual {p0, v1}, Lcom/ludocontroller/app/MainActivity;->addDiceRow(Landroid/widget/LinearLayout;)V
+
+    # --- YELLOW ROW ---
+    new-instance v2, Landroid/widget/TextView;
+    invoke-direct {v2, p0}, Landroid/widget/TextView;-><init>(Landroid/content/Context;)V
+    const-string v3, "YELLOW"
+    invoke-virtual {v2, v3}, Landroid/widget/TextView;->setText(Ljava/lang/CharSequence;)V
+    const/16 v3, -0x100
+    invoke-virtual {v2, v3}, Landroid/widget/TextView;->setTextColor(I)V
+    invoke-virtual {v1, v2}, Landroid/widget/LinearLayout;->addView(Landroid/view/View;)V
+    invoke-virtual {p0, v1}, Lcom/ludocontroller/app/MainActivity;->addDiceRow(Landroid/widget/LinearLayout;)V
 
     invoke-virtual {p0, v0}, Lcom/ludocontroller/app/MainActivity;->setContentView(Landroid/view/View;)V
     invoke-virtual {p0}, Lcom/ludocontroller/app/MainActivity;->checkPermissions()V
+    return-void
+.end method
+
+.method public addDiceRow(Landroid/widget/LinearLayout;)V
+    .locals 6
+    new-instance v0, Landroid/widget/LinearLayout;
+    invoke-direct {v0, p0}, Landroid/widget/LinearLayout;-><init>(Landroid/content/Context;)V
+    const/4 v1, 0x0
+    invoke-virtual {v0, v1}, Landroid/widget/LinearLayout;->setOrientation(I)V
+    const/4 v1, 0x1
+    :goto_btn
+    const/4 v2, 0x7
+    if-ge v1, v2, :end_btn
+    new-instance v2, Landroid/widget/Button;
+    invoke-direct {v2, p0}, Landroid/widget/Button;-><init>(Landroid/content/Context;)V
+    invoke-static {v1}, Ljava/lang/String;->valueOf(I)Ljava/lang/String;
+    move-result-object v3
+    invoke-virtual {v2, v3}, Landroid/widget/Button;->setText(Ljava/lang/CharSequence;)V
+    new-instance v3, Lcom/ludocontroller/app/MainActivity$2;
+    invoke-direct {v3, p0, v1}, Lcom/ludocontroller/app/MainActivity$2;-><init>(Lcom/ludocontroller/app/MainActivity;I)V
+    invoke-virtual {v2, v3}, Landroid/widget/Button;->setOnClickListener(Landroid/view/View$OnClickListener;)V
+    new-instance v3, Landroid/widget/LinearLayout$LayoutParams;
+    const/4 v4, -0x2
+    invoke-direct {v3, v4, v4}, Landroid/widget/LinearLayout$LayoutParams;-><init>(II)V
+    const/high16 v4, 0x3f800000
+    iput v4, v3, Landroid/widget/LinearLayout$LayoutParams;->weight:F
+    const/4 v4, 0x2
+    invoke-virtual {v3, v4, v4, v4, v4}, Landroid/widget/LinearLayout$LayoutParams;->setMargins(IIII)V
+    invoke-virtual {v0, v2, v3}, Landroid/widget/LinearLayout;->addView(Landroid/view/View;Landroid/view/ViewGroup$LayoutParams;)V
+    add-int/lit8 v1, v1, 0x1
+    goto :goto_btn
+    :end_btn
+    invoke-virtual {p1, v0}, Landroid/widget/LinearLayout;->addView(Landroid/view/View;)V
     return-void
 .end method
 
