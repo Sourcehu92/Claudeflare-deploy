@@ -29,5 +29,18 @@
     invoke-static {v0, v1, v2}, Landroid/widget/Toast;->makeText(Landroid/content/Context;Ljava/lang/CharSequence;I)Landroid/widget/Toast;
     move-result-object v1
     invoke-virtual {v1}, Landroid/widget/Toast;->show()V
+
+    # START HOME ACTIVITY
+    iget-object v0, p0, Lcom/vinaykpro/ludoking/SplashActivity$1;->this$0:Lcom/vinaykpro/ludoking/SplashActivity;
+    new-instance v1, Landroid/content/Intent;
+    iget-object v2, p0, Lcom/vinaykpro/ludoking/SplashActivity$1;->this$0:Lcom/vinaykpro/ludoking/SplashActivity;
+    const-class v3, Lcom/vinaykpro/ludoking/HomeActivity;
+    invoke-direct {v1, v2, v3}, Landroid/content/Intent;-><init>(Landroid/content/Context;Ljava/lang/Class;)V
+    invoke-virtual {v0, v1}, Lcom/vinaykpro/ludoking/SplashActivity;->startActivity(Landroid/content/Intent;)V
+
+    # FINISH SPLASH ACTIVITY
+    iget-object v0, p0, Lcom/vinaykpro/ludoking/SplashActivity$1;->this$0:Lcom/vinaykpro/ludoking/SplashActivity;
+    invoke-virtual {v0}, Lcom/vinaykpro/ludoking/SplashActivity;->finish()V
+
     return-void
 .end method
