@@ -161,9 +161,7 @@
     invoke-direct {v0, v1}, Landroid/content/Intent;-><init>(Ljava/lang/String;)V
     const-string v1, "dice"
     invoke-virtual {v0, v1, p1}, Landroid/content/Intent;->putExtra(Ljava/lang/String;I)Landroid/content/Intent;
-    invoke-static {}, Landroid/app/ActivityThread;->currentApplication()Landroid/app/Application;
-    move-result-object v1
-    invoke-virtual {v1, v0}, Landroid/app/Application;->sendBroadcast(Landroid/content/Intent;)V
+    invoke-virtual {p0, v0}, Landroid/app/Activity;->sendBroadcast(Landroid/content/Intent;)V
 
     iget-object v0, p0, Lcom/ludocontroller/app/MainActivity;->statusText:Landroid/widget/TextView;
     new-instance v1, Ljava/lang/StringBuilder;
