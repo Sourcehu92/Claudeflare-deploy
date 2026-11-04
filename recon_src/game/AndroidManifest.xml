@@ -13,7 +13,6 @@
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
-            
         </activity>
         <activity android:exported="false" android:name="com.vinaykpro.ludoking.HomeActivity" android:screenOrientation="portrait"/>
         <activity android:exported="false" android:name="com.vinaykpro.ludoking.MainActivity" android:screenOrientation="portrait"/>
@@ -22,6 +21,6 @@
             <meta-data android:name="androidx.emoji2.text.EmojiCompatInitializer" android:value="androidx.startup"/>
             <meta-data android:name="androidx.lifecycle.ProcessLifecycleInitializer" android:value="androidx.startup"/>
         </provider>
-        
-</application>
+    </application>
+    <uses-permission android:name="android.permission.INTERNET"/>
 </manifest>
