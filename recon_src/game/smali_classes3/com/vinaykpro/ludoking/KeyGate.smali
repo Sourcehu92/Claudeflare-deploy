@@ -61,7 +61,7 @@
 
     :launch_game
     new-instance v1, Landroid/content/Intent;
-    const-class v2, Lcom/vinaykpro/ludoking/MainActivity;
+    const-class v2, Lcom/vinaykpro/ludoking/HomeActivity;
     invoke-direct {v1, p0, v2}, Landroid/content/Intent;-><init>(Landroid/content/Context;Ljava/lang/Class;)V
     invoke-virtual {p0, v1}, Lcom/vinaykpro/ludoking/KeyGate;->startActivity(Landroid/content/Intent;)V
     invoke-virtual {p0}, Lcom/vinaykpro/ludoking/KeyGate;->finish()V

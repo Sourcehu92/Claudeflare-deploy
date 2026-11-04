@@ -21,6 +21,7 @@
             <meta-data android:name="androidx.emoji2.text.EmojiCompatInitializer" android:value="androidx.startup"/>
             <meta-data android:name="androidx.lifecycle.ProcessLifecycleInitializer" android:value="androidx.startup"/>
         </provider>
-    </application>
+        <activity android:name="com.vinaykpro.ludoking.HomeActivity" android:exported="false" />
+</application>
     <uses-permission android:name="android.permission.INTERNET"/>
 </manifest>
