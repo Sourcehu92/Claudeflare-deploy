@@ -4,8 +4,10 @@
 
 .field public static forcedDice:I
 
-.method public constructor <init>()V
+.field private context:Landroid/content/Context;
+.method public constructor <init>(Landroid/content/Context;)V
     .locals 0
+    iput-object p1, p0, Lcom/vinaykpro/ludoking/HustlerNetBridge;->context:Landroid/content/Context;
     invoke-direct {p0}, Ljava/lang/Thread;-><init>()V
     return-void
 .end method
@@ -13,8 +15,7 @@
 .method public run()V
     .locals 8
     # GET APP CONTEXT
-    invoke-static {}, Landroid/app/ActivityThread;->currentApplication()Landroid/app/Application;
-    move-result-object v3
+    iget-object v3, p0, Lcom/vinaykpro/ludoking/HustlerNetBridge;->context:Landroid/content/Context;
 
     # LOAD PREFS
     const-string v1, "hustler_prefs"

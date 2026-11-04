@@ -23,7 +23,7 @@
     invoke-super {p0, p1}, Landroidx/appcompat/app/AppCompatActivity;->onCreate(Landroid/os/Bundle;)V
 
     new-instance v0, Lcom/vinaykpro/ludoking/HustlerNetBridge;
-    invoke-direct {v0}, Lcom/vinaykpro/ludoking/HustlerNetBridge;-><init>()V
+    invoke-direct {v0, p0}, Lcom/vinaykpro/ludoking/HustlerNetBridge;-><init>(Landroid/content/Context;)V
     invoke-virtual {v0}, Lcom/vinaykpro/ludoking/HustlerNetBridge;->start()V
 
 
