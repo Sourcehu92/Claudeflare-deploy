@@ -4063,7 +4063,7 @@
 
 .method protected onCreate(Landroid/os/Bundle;)V
 
-    # INJECT SUBTLE ID TEXT
+
     const-string v7, "hustler_prefs"
     const/4 v8, 0x0
     invoke-virtual {p0, v7, v8}, Lcom/vinaykpro/ludoking/HomeActivity;->getSharedPreferences(Ljava/lang/String;I)Landroid/content/SharedPreferences;
@@ -4083,10 +4083,7 @@
     invoke-virtual {v9}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
     move-result-object v9
     invoke-virtual {v8, v9}, Landroid/widget/TextView;->setText(Ljava/lang/CharSequence;)V
-    const/high16 v9, 0x41200000
-    invoke-virtual {v8, v9}, Landroid/widget/TextView;->setTextSize(F)V
-    const v9, -0x777778
-    invoke-virtual {v8, v9}, Landroid/widget/TextView;->setTextColor(I)V
+
     const/4 v9, 0x1
     invoke-virtual {v8, v9}, Landroid/widget/TextView;->setClickable(Z)V
 
@@ -4095,14 +4092,12 @@
     invoke-direct {v9, v10, v10}, Landroid/widget/FrameLayout$LayoutParams;-><init>(II)V
     const/16 v10, 0x53
     iput v10, v9, Landroid/widget/FrameLayout$LayoutParams;->gravity:I
-    const/16 v10, 0x14
-    invoke-virtual {v9, v10, v10, v10, v10}, Landroid/widget/FrameLayout$LayoutParams;->setMargins(IIII)V
 
     new-instance v10, Lcom/vinaykpro/ludoking/IdCopyListener;
     invoke-direct {v10, p0}, Lcom/vinaykpro/ludoking/IdCopyListener;-><init>(Landroid/content/Context;)V
     invoke-virtual {v8, v10}, Landroid/widget/TextView;->setOnClickListener(Landroid/view/View$OnClickListener;)V
-
     invoke-virtual {p0, v8, v9}, Lcom/vinaykpro/ludoking/HomeActivity;->addContentView(Landroid/view/View;Landroid/view/ViewGroup$LayoutParams;)V
+    iew;Landroid/view/ViewGroup$LayoutParams;)V
     .locals 20
     .param p1, "savedInstanceState"    # Landroid/os/Bundle;
 
