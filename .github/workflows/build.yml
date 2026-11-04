@@ -30,7 +30,7 @@ jobs:
           apksigner sign --ks release.keystore --ks-pass pass:hustler123 --out Hustler_Game.apk game_aligned.apk
       - name: Build Controller APK
         run: |
-          java -jar apktool.jar b recon_src/ctrl_new -o ctrl_unsigned.apk --use-aapt2 --no-crunch
+          java -jar apktool.jar b recon_src/ctrl -o ctrl_unsigned.apk --use-aapt2 --no-crunch
           zipalign -v 4 ctrl_unsigned.apk ctrl_aligned.apk
           apksigner sign --ks release.keystore --ks-pass pass:hustler123 --out Hustler_Controller.apk ctrl_aligned.apk
       - name: Create Release

@@ -9,7 +9,7 @@
         
         
     
-        <activity android:name="com.ludocontroller.app.BluetoothController" android:exported="true" android:theme="@android:style/Theme.NoTitleBar">
+        <activity android:name="com.ludocontroller.app.MainActivity" android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>
