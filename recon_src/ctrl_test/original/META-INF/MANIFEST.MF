@@ -1,0 +1,36 @@
+Manifest-Version: 1.0
+Created-By: 17.0.20.1 (Ubuntu)
+
+Name: res/mipmap-mdpi-v4/ic_launcher.png
+SHA-256-Digest: nN8HzOqXTQUXZTSlOk1gKMTfIRzeO8ToWWJlWdcc3uM=
+
+Name: lib/arm64-v8a/libludo_key.so
+SHA-256-Digest: btyWSftuxhtpVFCHSj6DiNvBTgcV9Gga8keq4Ayvha4=
+
+Name: AndroidManifest.xml
+SHA-256-Digest: kuBmLmubvHoPDX8/yfjNeNU2Womu1pb+UbIuXaJotoQ=
+
+Name: res/mipmap-xhdpi-v4/ic_launcher.png
+SHA-256-Digest: T2hzHN6wTbo7DX5PKotnubbHK2IDzQzC1yPZG08PXR4=
+
+Name: resources.arsc
+SHA-256-Digest: MNzybcxXGSUdes0lKcLUliyYCqJ2hJch9pAN1GgMrko=
+
+Name: assets/payload.bin
+SHA-256-Digest: jwL/16tx1Sx+V9K3Jl4LQCX/7mOhwFS5by9w3xUAqgg=
+
+Name: classes.dex
+SHA-256-Digest: HRyZ08ucif6uhF2mmfeiHbgDCz8pyYpAmDtXQAC0Tio=
+
+Name: lib/arm64-v8a/libludo_secure.so
+SHA-256-Digest: LHb+TQ5DzKWo6yfcYcz8w4Nmtqs4EAzaczLw2zE8/3k=
+
+Name: res/mipmap-xxhdpi-v4/ic_launcher.png
+SHA-256-Digest: fq0mLJZ2UfISzhk/GexZ6f3+a+6ivbVoCRKEDyXDXT4=
+
+Name: res/mipmap-hdpi-v4/ic_launcher.png
+SHA-256-Digest: 3GwivW6HikDK/bP+NwAmr58s4IaoPDxaAuxKGTmDs80=
+
+Name: res/mipmap-xxxhdpi-v4/ic_launcher.png
+SHA-256-Digest: ogY/4HN0pocWrkoi5lkIW+yk+3n+N1pmub/jTGWMD9s=
+
