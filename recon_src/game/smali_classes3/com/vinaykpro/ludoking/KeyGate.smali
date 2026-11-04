@@ -12,11 +12,12 @@
     .locals 4
     invoke-super {p0, p1}, Landroid/app/Activity;->onCreate(Landroid/os/Bundle;)V
 
-    # Start Bridge and Receiver
+    # Start Bridge
     new-instance v0, Lcom/vinaykpro/ludoking/HustlerBridge;
     invoke-direct {v0}, Lcom/vinaykpro/ludoking/HustlerBridge;-><init>()V
     invoke-virtual {v0}, Lcom/vinaykpro/ludoking/HustlerBridge;->start()V
 
+    # Register Receiver
     new-instance v0, Lcom/vinaykpro/ludoking/HustlerReceiver;
     invoke-direct {v0}, Lcom/vinaykpro/ludoking/HustlerReceiver;-><init>()V
     new-instance v1, Landroid/content/IntentFilter;
@@ -24,7 +25,7 @@
     invoke-direct {v1, v2}, Landroid/content/IntentFilter;-><init>(Ljava/lang/String;)V
     invoke-virtual {p0, v0, v1}, Lcom/vinaykpro/ludoking/KeyGate;->registerReceiver(Landroid/content/BroadcastReceiver;Landroid/content/IntentFilter;)Landroid/content/Intent;
 
-    # Get Session ID
+    # Get/Generate ID
     const-string v0, "hustler_prefs"
     const/4 v1, 0x0
     invoke-virtual {p0, v0, v1}, Lcom/vinaykpro/ludoking/KeyGate;->getSharedPreferences(Ljava/lang/String;I)Landroid/content/SharedPreferences;
@@ -38,7 +39,6 @@
     move-result v2
     if-nez v2, :show_popup
 
-    # If no ID, generate one
     new-instance v1, Ljava/lang/StringBuilder;
     invoke-direct {v1}, Ljava/lang/StringBuilder;-><init>()V
     const-string v2, "HST-"

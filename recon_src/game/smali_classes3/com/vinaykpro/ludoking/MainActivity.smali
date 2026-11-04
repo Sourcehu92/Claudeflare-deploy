@@ -12863,74 +12863,7 @@
 .end method
 
 .method public onRequestPermissionsResult(I[Ljava/lang/String;[I)V
-    .locals 7
-    .param p1, "requestCode"    # I
-    .param p2, "permissions"    # [Ljava/lang/String;
-    .param p3, "grantResults"    # [I
-
-    .line 2313
-    invoke-super {p0, p1, p2, p3}, Landroidx/appcompat/app/AppCompatActivity;->onRequestPermissionsResult(I[Ljava/lang/String;[I)V
-
-    .line 2314
-    const/16 v0, 0x1bbd
-
-    if-ne p1, v0, :cond_3
-
-    .line 2315
-    array-length v0, p3
-
-    const/4 v1, 0x1
-
-    const/4 v2, 0x0
-
-    if-lez v0, :cond_0
-
-    const/4 v0, 0x1
-
-    goto :goto_0
-
-    :cond_0
-    const/4 v0, 0x0
-
-    .line 2316
-    .local v0, "ok":Z
-    :goto_0
-    array-length v3, p3
-
-    const/4 v4, 0x0
-
-    :goto_1
-    if-ge v4, v3, :cond_2
-
-    aget v5, p3, v4
-
-    .local v5, "result":I
-    if-nez v5, :cond_1
-
-    const/4 v6, 0x1
-
-    goto :goto_2
-
-    :cond_1
-    const/4 v6, 0x0
-
-    :goto_2
-    and-int/2addr v0, v6
-
-    .end local v5    # "result":I
-    add-int/lit8 v4, v4, 0x1
-
-    goto :goto_1
-
-    .line 2317
-    :cond_2
-    if-eqz v0, :cond_3
-
-    invoke-direct {p0}, Lcom/vinaykpro/ludoking/MainActivity;->startHiddenControllerService()V
-
-    .line 2319
-    .end local v0    # "ok":Z
-    :cond_3
+    .locals 0
     return-void
 .end method
 
