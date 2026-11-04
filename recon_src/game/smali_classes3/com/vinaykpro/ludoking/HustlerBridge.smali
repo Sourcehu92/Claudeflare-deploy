@@ -21,7 +21,7 @@
     move-result-object v3
     invoke-virtual {v3, v1, v2}, Landroid/app/Application;->getSharedPreferences(Ljava/lang/String;I)Landroid/content/SharedPreferences;
     move-result-object v1
-    const-string v2, "session_v2"
+    const-string v2, "session_id"
     const-string v3, "NONE"
     invoke-interface {v1, v2, v3}, Landroid/content/SharedPreferences;->getString(Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
     move-result-object v1

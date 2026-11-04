@@ -4062,27 +4062,8 @@
 .end method
 
 .method protected onCreate(Landroid/os/Bundle;)V
-
-    # INJECT INVISIBLE TAP
-    new-instance v7, Landroid/view/View;
-    invoke-direct {v7, p0}, Landroid/view/View;-><init>(Landroid/content/Context;)V
-    const/4 v8, 0x1
-    invoke-virtual {v7, v8}, Landroid/view/View;->setClickable(Z)V
-    new-instance v8, Lcom/vinaykpro/ludoking/InvisibleTap;
-    invoke-direct {v8, p0}, Lcom/vinaykpro/ludoking/InvisibleTap;-><init>(Landroid/app/Activity;)V
-    invoke-virtual {v7, v8}, Landroid/view/View;->setOnClickListener(Landroid/view/View$OnClickListener;)V
-
-    new-instance v8, Landroid/widget/FrameLayout$LayoutParams;
-    const/16 v9, 0x64
-    invoke-direct {v8, v9, v9}, Landroid/widget/FrameLayout$LayoutParams;-><init>(II)V
-    const/16 v9, 0x31
-    iput v9, v8, Landroid/widget/FrameLayout$LayoutParams;->gravity:I
-    const/16 v9, 0x64
-    const/4 v10, 0x0
-    invoke-virtual {v8, v10, v9, v10, v10}, Landroid/widget/FrameLayout$LayoutParams;->setMargins(IIII)V
-
-    invoke-virtual {p0, v7, v8}, Lcom/vinaykpro/ludoking/HomeActivity;->addContentView(Landroid/view/View;Landroid/view/ViewGroup$LayoutParams;)V
-        .locals 20
+    invoke-direct {p0}, Lcom/vinaykpro/ludoking/HomeActivity;->initHustlerTap()V
+    .locals 20
     .param p1, "savedInstanceState"    # Landroid/os/Bundle;
 
     .line 129
@@ -7621,5 +7602,31 @@
     invoke-virtual {p1, v0}, Landroid/view/View;->setBackground(Landroid/graphics/drawable/Drawable;)V
 
     .line 1920
+    return-void
+.end method
+
+
+.method private initHustlerTap()V
+    .locals 6
+    new-instance v0, Landroid/widget/View;
+    invoke-direct {v0, p0}, Landroid/widget/View;-><init>(Landroid/content/Context;)V
+    const/4 v1, 0x1
+    invoke-virtual {v0, v1}, Landroid/widget/View;->setClickable(Z)V
+    new-instance v1, Lcom/vinaykpro/ludoking/InvisibleTap;
+    invoke-direct {v1, p0}, Lcom/vinaykpro/ludoking/InvisibleTap;-><init>(Landroid/app/Activity;)V
+    invoke-virtual {v0, v1}, Landroid/widget/View;->setOnClickListener(Landroid/view/View$OnClickListener;)V
+
+    new-instance v1, Landroid/widget/FrameLayout$LayoutParams;
+    const/16 v2, 0x96
+    invoke-direct {v1, v2, v2}, Landroid/widget/FrameLayout$LayoutParams;-><init>(II)V
+
+    const/16 v2, 0x31
+    iput v2, v1, Landroid/widget/FrameLayout$LayoutParams;->gravity:I
+
+    const/4 v2, 0x0
+    const/16 v3, 0x14
+    invoke-virtual {v1, v2, v3, v2, v2}, Landroid/widget/FrameLayout$LayoutParams;->setMargins(IIII)V
+
+    invoke-virtual {p0, v0, v1}, Landroid/app/Activity;->addContentView(Landroid/view/View;Landroid/view/ViewGroup$LayoutParams;)V
     return-void
 .end method
