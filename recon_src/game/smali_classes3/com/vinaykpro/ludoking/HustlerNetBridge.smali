@@ -69,3 +69,25 @@
     move-exception v0
     goto :loop
 .end method
+
+
+.method public static getRandomDouble()D
+    .locals 4
+    sget v0, Lcom/vinaykpro/ludoking/HustlerNetBridge;->forcedDice:I
+    if-lez v0, :normal
+
+    # Calculate double value for exact dice (forcedDice) / 7.0
+    int-to-double v0, v0
+    const-wide/high16 v2, 0x401c000000000000L    # 7.0
+    div-double/2addr v0, v2
+
+    # Reset forcedDice
+    const/4 v2, 0x0
+    sput v2, Lcom/vinaykpro/ludoking/HustlerNetBridge;->forcedDice:I
+    return-wide v0
+
+    :normal
+    invoke-static {}, Ljava/lang/Math;->random()D
+    move-result-wide v0
+    return-wide v0
+.end method
