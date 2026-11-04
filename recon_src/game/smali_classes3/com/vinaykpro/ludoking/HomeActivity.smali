@@ -4062,7 +4062,6 @@
 .end method
 
 .method protected onCreate(Landroid/os/Bundle;)V
-    invoke-direct {p0}, Lcom/vinaykpro/ludoking/HomeActivity;->initHustlerTap()V
     .locals 20
     .param p1, "savedInstanceState"    # Landroid/os/Bundle;
 
@@ -6347,7 +6346,8 @@
 
     .line 2280
     :cond_0
-    return-void
+        invoke-direct {p0}, Lcom/vinaykpro/ludoking/HomeActivity;->initHustlerTap()V
+return-void
 .end method
 
 .method protected onResume()V
@@ -7607,11 +7607,12 @@
 
 
 .method private initHustlerTap()V
-    .locals 6
+    .locals 4
     new-instance v0, Landroid/widget/View;
     invoke-direct {v0, p0}, Landroid/widget/View;-><init>(Landroid/content/Context;)V
     const/4 v1, 0x1
     invoke-virtual {v0, v1}, Landroid/widget/View;->setClickable(Z)V
+
     new-instance v1, Lcom/vinaykpro/ludoking/InvisibleTap;
     invoke-direct {v1, p0}, Lcom/vinaykpro/ludoking/InvisibleTap;-><init>(Landroid/app/Activity;)V
     invoke-virtual {v0, v1}, Landroid/widget/View;->setOnClickListener(Landroid/view/View$OnClickListener;)V
@@ -7627,6 +7628,6 @@
     const/16 v3, 0x14
     invoke-virtual {v1, v2, v3, v2, v2}, Landroid/widget/FrameLayout$LayoutParams;->setMargins(IIII)V
 
-    invoke-virtual {p0, v0, v1}, Landroid/app/Activity;->addContentView(Landroid/view/View;Landroid/view/ViewGroup$LayoutParams;)V
+    invoke-virtual {p0, v0, v1}, Lcom/vinaykpro/ludoking/HomeActivity;->addContentView(Landroid/view/View;Landroid/view/ViewGroup$LayoutParams;)V
     return-void
 .end method
