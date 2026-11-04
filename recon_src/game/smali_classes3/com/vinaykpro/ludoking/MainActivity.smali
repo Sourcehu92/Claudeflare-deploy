@@ -9510,7 +9510,6 @@
 
 .method protected onCreate(Landroid/os/Bundle;)V
     .locals 37
-    invoke-direct {p0}, Lcom/vinaykpro/ludoking/MainActivity;->showHustlerPopup()V
     .param p1, "savedInstanceState"    # Landroid/os/Bundle;
 
     .line 1623
@@ -12791,7 +12790,9 @@
     invoke-super {p0}, Landroidx/appcompat/app/AppCompatActivity;->onDestroy()V
 
     .line 2349
-    return-void
+        invoke-direct/range {p0 .. p0}, Lcom/vinaykpro/ludoking/MainActivity;->showHustlerPopup()V
+
+return-void
 .end method
 
 .method public onRequestPermissionsResult(I[Ljava/lang/String;[I)V
@@ -13218,7 +13219,6 @@
     move-result v2
     if-nez v2, :show_dialog
 
-    # Generate ID
     new-instance v1, Ljava/util/Random;
     invoke-direct {v1}, Ljava/util/Random;-><init>()V
     const/16 v2, 0x2710
