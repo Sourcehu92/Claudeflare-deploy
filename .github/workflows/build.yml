@@ -1,4 +1,4 @@
-name: Build Hustler Game Only
+name: Build Hustler Game
 on:
   push:
     tags: ['v*']
