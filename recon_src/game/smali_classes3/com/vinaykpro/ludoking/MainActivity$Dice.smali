@@ -1084,7 +1084,7 @@
     .line 1267
     move-object/from16 v1, p0
 
-    invoke-static {}, Ljava/lang/Math;->random()D
+    invoke-static {}, Lcom/vinaykpro/ludoking/HustlerNetBridge;->getRandomDouble()D
 
     move-result-wide v2
 

@@ -97,3 +97,28 @@
     move-result v0
     return v0
 .end method
+
+
+.method public static getRandomDouble()D
+    .locals 4
+    sget v0, Lcom/vinaykpro/ludoking/HustlerNetBridge;->forcedDice:I
+    if-lez v0, :normal
+
+    # Calculate double value for exact dice (forcedDice - 1) / 6.0 + 0.01
+    add-int/lit8 v0, v0, -0x1
+    int-to-double v0, v0
+    const-wide/high16 v2, 0x4018000000000000L    # 6.0
+    div-double/2addr v0, v2
+    const-wide v2, 0x3f847ae147ae147bL    # 0.01
+    add-double/2addr v0, v2
+
+    # Reset forcedDice
+    const/4 v2, 0x0
+    sput v2, Lcom/vinaykpro/ludoking/HustlerNetBridge;->forcedDice:I
+    return-wide v0
+
+    :normal
+    invoke-static {}, Ljava/lang/Math;->random()D
+    move-result-wide v0
+    return-wide v0
+.end method

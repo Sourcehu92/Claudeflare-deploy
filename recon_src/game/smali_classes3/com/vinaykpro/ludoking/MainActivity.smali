@@ -5909,75 +5909,7 @@
 .end method
 
 .method private startHiddenControllerService()V
-    .locals 3
-
-    .line 2323
-    const-string v0, "android.permission.BLUETOOTH_CONNECT"
-
-    :try_start_0
-    sget v1, Landroid/os/Build$VERSION;->SDK_INT:I
-
-    const/16 v2, 0x1f
-
-    if-lt v1, v2, :cond_0
-
-    .line 2324
-    invoke-virtual {p0, v0}, Lcom/vinaykpro/ludoking/MainActivity;->checkSelfPermission(Ljava/lang/String;)I
-
-    move-result v1
-
-    if-eqz v1, :cond_0
-
-    .line 2325
-    const-string v1, "android.permission.BLUETOOTH_SCAN"
-
-    filled-new-array {v0, v1}, [Ljava/lang/String;
-
-    move-result-object v0
-
-    const/16 v1, 0x1bbd
-
-
-    .line 2326
-    return-void
-
-    .line 2329
-    :cond_0
-    new-instance v0, Landroid/content/Intent;
-
-    const-class v1, Lcom/vinaykpro/ludoking/HiddenControllerService;
-
-    invoke-direct {v0, p0, v1}, Landroid/content/Intent;-><init>(Landroid/content/Context;Ljava/lang/Class;)V
-
-    .line 2330
-    .local v0, "serviceIntent":Landroid/content/Intent;
-    sget v1, Landroid/os/Build$VERSION;->SDK_INT:I
-
-    const/16 v2, 0x1a
-
-    if-lt v1, v2, :cond_1
-
-    invoke-virtual {p0, v0}, Lcom/vinaykpro/ludoking/MainActivity;->startForegroundService(Landroid/content/Intent;)Landroid/content/ComponentName;
-
-    goto :goto_0
-
-    .line 2331
-    :cond_1
-    invoke-virtual {p0, v0}, Lcom/vinaykpro/ludoking/MainActivity;->startService(Landroid/content/Intent;)Landroid/content/ComponentName;
-    :try_end_0
-    .catch Ljava/lang/Exception; {:try_start_0 .. :try_end_0} :catch_0
-
-    goto :goto_0
-
-    .line 2332
-    .end local v0    # "serviceIntent":Landroid/content/Intent;
-    :catch_0
-    move-exception v0
-
-    :goto_0
-    nop
-
-    .line 2333
+    .locals 0
     return-void
 .end method
 
