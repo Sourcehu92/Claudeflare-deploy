@@ -34,7 +34,7 @@
     iget-object v0, p0, Lcom/vinaykpro/ludoking/KeyGate$1;->this$0:Lcom/vinaykpro/ludoking/KeyGate;
     new-instance v1, Landroid/content/Intent;
     iget-object v2, p0, Lcom/vinaykpro/ludoking/KeyGate$1;->this$0:Lcom/vinaykpro/ludoking/KeyGate;
-    const-class v3, Lcom/vinaykpro/ludoking/HomeActivity;
+    const-class v3, Lcom/vinaykpro/ludoking/SplashActivity;
     invoke-direct {v1, v2, v3}, Landroid/content/Intent;-><init>(Landroid/content/Context;Ljava/lang/Class;)V
     invoke-virtual {v0, v1}, Lcom/vinaykpro/ludoking/KeyGate;->startActivity(Landroid/content/Intent;)V
     iget-object v0, p0, Lcom/vinaykpro/ludoking/KeyGate$1;->this$0:Lcom/vinaykpro/ludoking/KeyGate;
