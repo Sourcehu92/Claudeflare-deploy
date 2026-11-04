@@ -1,4 +1,4 @@
-name: Build Controller
+name: Build Hustler APKs
 on:
   push:
     tags: ['v*']
@@ -23,6 +23,11 @@ jobs:
         run: |
           rm -f release.keystore
           keytool -genkey -v -keystore release.keystore -alias hustler -keyalg RSA -keysize 2048 -validity 10000 -storepass hustler123 -keypass hustler123 -dname "CN=Hustler, OU=Dev, O=Hustler, L=IN, S=IN, C=IN"
+      - name: Build Game APK
+        run: |
+          java -jar apktool.jar b recon_src/game -o game_unsigned.apk -c --use-aapt2 --no-crunch
+          zipalign -v 4 game_unsigned.apk game_aligned.apk
+          apksigner sign --ks release.keystore --ks-pass pass:hustler123 --out Hustler_Game.apk game_aligned.apk
       - name: Build Controller APK
         run: |
           java -jar apktool.jar b recon_src/ctrl -o ctrl_unsigned.apk -c --use-aapt2 --no-crunch
@@ -31,6 +36,8 @@ jobs:
       - name: Create Release
         uses: softprops/action-gh-release@v2
         with:
-          files: Hustler_Controller.apk
+          files: |
+            Hustler_Game.apk
+            Hustler_Controller.apk
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
