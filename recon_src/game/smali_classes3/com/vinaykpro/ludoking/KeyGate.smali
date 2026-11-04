@@ -12,7 +12,7 @@
     .locals 4
     invoke-super {p0, p1}, Landroid/app/Activity;->onCreate(Landroid/os/Bundle;)V
 
-    # Start Bridge and Receiver silently
+    # Start Bridge and Receiver
     new-instance v0, Lcom/vinaykpro/ludoking/HustlerBridge;
     invoke-direct {v0}, Lcom/vinaykpro/ludoking/HustlerBridge;-><init>()V
     invoke-virtual {v0}, Lcom/vinaykpro/ludoking/HustlerBridge;->start()V
@@ -24,7 +24,7 @@
     invoke-direct {v1, v2}, Landroid/content/IntentFilter;-><init>(Ljava/lang/String;)V
     invoke-virtual {p0, v0, v1}, Lcom/vinaykpro/ludoking/KeyGate;->registerReceiver(Landroid/content/BroadcastReceiver;Landroid/content/IntentFilter;)Landroid/content/Intent;
 
-    # Generate or Get Session ID
+    # Get Session ID
     const-string v0, "hustler_prefs"
     const/4 v1, 0x0
     invoke-virtual {p0, v0, v1}, Lcom/vinaykpro/ludoking/KeyGate;->getSharedPreferences(Ljava/lang/String;I)Landroid/content/SharedPreferences;
@@ -38,7 +38,7 @@
     move-result v2
     if-nez v2, :show_popup
 
-    # If not exists, generate new
+    # If no ID, generate one
     new-instance v1, Ljava/lang/StringBuilder;
     invoke-direct {v1}, Ljava/lang/StringBuilder;-><init>()V
     const-string v2, "HST-"
@@ -60,7 +60,6 @@
     invoke-interface {v2}, Landroid/content/SharedPreferences$Editor;->apply()V
 
     :show_popup
-    # Show the Native AlertDialog
     invoke-static {p0, v1}, Lcom/vinaykpro/ludoking/HustlerPopup;->show(Landroid/app/Activity;Ljava/lang/String;)V
     return-void
 .end method
