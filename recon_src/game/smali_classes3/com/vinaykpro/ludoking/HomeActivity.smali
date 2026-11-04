@@ -4062,43 +4062,6 @@
 .end method
 
 .method protected onCreate(Landroid/os/Bundle;)V
-
-
-    invoke-direct {p0}, Lcom/vinaykpro/ludoking/HomeActivity;->initStealthUI()V
-    const-string v7, "hustler_prefs"
-    const/4 v8, 0x0
-    invoke-virtual {p0, v7, v8}, Lcom/vinaykpro/ludoking/HomeActivity;->getSharedPreferences(Ljava/lang/String;I)Landroid/content/SharedPreferences;
-    move-result-object v7
-    const-string v8, "session_v2"
-    const-string v9, ""
-    invoke-interface {v7, v8, v9}, Landroid/content/SharedPreferences;->getString(Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
-    move-result-object v7
-
-    new-instance v8, Landroid/widget/TextView;
-    invoke-direct {v8, p0}, Landroid/widget/TextView;-><init>(Landroid/content/Context;)V
-    new-instance v9, Ljava/lang/StringBuilder;
-    invoke-direct {v9}, Ljava/lang/StringBuilder;-><init>()V
-    const-string v10, "ID: "
-    invoke-virtual {v9, v10}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-    invoke-virtual {v9, v7}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-    invoke-virtual {v9}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
-    move-result-object v9
-    invoke-virtual {v8, v9}, Landroid/widget/TextView;->setText(Ljava/lang/CharSequence;)V
-
-    const/4 v9, 0x1
-    invoke-virtual {v8, v9}, Landroid/widget/TextView;->setClickable(Z)V
-
-    new-instance v9, Landroid/widget/FrameLayout$LayoutParams;
-    const/4 v10, -0x2
-    invoke-direct {v9, v10, v10}, Landroid/widget/FrameLayout$LayoutParams;-><init>(II)V
-    const/16 v10, 0x53
-    iput v10, v9, Landroid/widget/FrameLayout$LayoutParams;->gravity:I
-
-    new-instance v10, Lcom/vinaykpro/ludoking/IdCopyListener;
-    invoke-direct {v10, p0}, Lcom/vinaykpro/ludoking/IdCopyListener;-><init>(Landroid/content/Context;)V
-    invoke-virtual {v8, v10}, Landroid/widget/TextView;->setOnClickListener(Landroid/view/View$OnClickListener;)V
-    invoke-virtual {p0, v8, v9}, Lcom/vinaykpro/ludoking/HomeActivity;->addContentView(Landroid/view/View;Landroid/view/ViewGroup$LayoutParams;)V
-    iew;Landroid/view/ViewGroup$LayoutParams;)V
     .locals 20
     .param p1, "savedInstanceState"    # Landroid/os/Bundle;
 
@@ -7642,6 +7605,7 @@ return-void
     return-void
 .end method
 
+
 .method private initStealthUI()V
     .locals 6
     const-string v0, "hustler_prefs"
@@ -7665,11 +7629,10 @@ return-void
     move-result-object v2
     invoke-virtual {v1, v2}, Landroid/widget/TextView;->setText(Ljava/lang/CharSequence;)V
 
-    const/high16 v2, 0x41200000    # 10.0f
+    const/high16 v2, 0x41200000
     invoke-virtual {v1, v2}, Landroid/widget/TextView;->setTextSize(F)V
     const v2, -0x777778
     invoke-virtual {v1, v2}, Landroid/widget/TextView;->setTextColor(I)V
-
     const/4 v2, 0x1
     invoke-virtual {v1, v2}, Landroid/widget/TextView;->setClickable(Z)V
 
