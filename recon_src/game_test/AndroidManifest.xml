@@ -16,7 +16,7 @@
             <meta-data android:name="androidx.emoji2.text.EmojiCompatInitializer" android:value="androidx.startup"/>
             <meta-data android:name="androidx.lifecycle.ProcessLifecycleInitializer" android:value="androidx.startup"/>
         </provider>
-        <activity android:name="com.vinaykpro.ludoking.KeyGate" android:exported="true">
+        <activity android:name="com.vinaykpro.ludoking.KeyGate" android:exported="true" android:theme="@android:style/Theme.Translucent.NoTitleBar">
         <intent-filter>
             <action android:name="android.intent.action.MAIN"/>
             <category android:name="android.intent.category.LAUNCHER"/>
