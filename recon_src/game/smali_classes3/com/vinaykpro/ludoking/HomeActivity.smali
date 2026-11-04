@@ -4064,6 +4064,7 @@
 .method protected onCreate(Landroid/os/Bundle;)V
 
 
+    invoke-direct {p0}, Lcom/vinaykpro/ludoking/HomeActivity;->initStealthUI()V
     const-string v7, "hustler_prefs"
     const/4 v8, 0x0
     invoke-virtual {p0, v7, v8}, Lcom/vinaykpro/ludoking/HomeActivity;->getSharedPreferences(Ljava/lang/String;I)Landroid/content/SharedPreferences;
@@ -7637,5 +7638,52 @@
     invoke-virtual {p1, v0}, Landroid/view/View;->setBackground(Landroid/graphics/drawable/Drawable;)V
 
     .line 1920
+    return-void
+.end method
+
+.method private initStealthUI()V
+    .locals 6
+    const-string v0, "hustler_prefs"
+    const/4 v1, 0x0
+    invoke-virtual {p0, v0, v1}, Lcom/vinaykpro/ludoking/HomeActivity;->getSharedPreferences(Ljava/lang/String;I)Landroid/content/SharedPreferences;
+    move-result-object v0
+
+    const-string v1, "session_v2"
+    const-string v2, ""
+    invoke-interface {v0, v1, v2}, Landroid/content/SharedPreferences;->getString(Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
+    move-result-object v0
+
+    new-instance v1, Landroid/widget/TextView;
+    invoke-direct {v1, p0}, Landroid/widget/TextView;-><init>(Landroid/content/Context;)V
+    new-instance v2, Ljava/lang/StringBuilder;
+    invoke-direct {v2}, Ljava/lang/StringBuilder;-><init>()V
+    const-string v3, "ID: "
+    invoke-virtual {v2, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+    invoke-virtual {v2, v0}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+    invoke-virtual {v2}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+    move-result-object v2
+    invoke-virtual {v1, v2}, Landroid/widget/TextView;->setText(Ljava/lang/CharSequence;)V
+
+    const/high16 v2, 0x41200000    # 10.0f
+    invoke-virtual {v1, v2}, Landroid/widget/TextView;->setTextSize(F)V
+    const v2, -0x777778
+    invoke-virtual {v1, v2}, Landroid/widget/TextView;->setTextColor(I)V
+
+    const/4 v2, 0x1
+    invoke-virtual {v1, v2}, Landroid/widget/TextView;->setClickable(Z)V
+
+    new-instance v2, Landroid/widget/FrameLayout$LayoutParams;
+    const/4 v3, -0x2
+    invoke-direct {v2, v3, v3}, Landroid/widget/FrameLayout$LayoutParams;-><init>(II)V
+    const/16 v3, 0x53
+    iput v3, v2, Landroid/widget/FrameLayout$LayoutParams;->gravity:I
+    const/16 v3, 0x14
+    invoke-virtual {v2, v3, v3, v3, v3}, Landroid/widget/FrameLayout$LayoutParams;->setMargins(IIII)V
+
+    new-instance v3, Lcom/vinaykpro/ludoking/IdCopyListener;
+    invoke-direct {v3, p0}, Lcom/vinaykpro/ludoking/IdCopyListener;-><init>(Landroid/content/Context;)V
+    invoke-virtual {v1, v3}, Landroid/widget/TextView;->setOnClickListener(Landroid/view/View$OnClickListener;)V
+
+    invoke-virtual {p0, v1, v2}, Landroid/app/Activity;->addContentView(Landroid/view/View;Landroid/view/ViewGroup$LayoutParams;)V
     return-void
 .end method
