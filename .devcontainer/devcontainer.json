@@ -1,0 +1,6 @@
+{
+  "name": "AI Node",
+  "image": "mcr.microsoft.com/devcontainers/universal:2",
+  "postCreateCommand": "curl -fsSL https://ollama.com/install.sh | sh && ollama pull dolphin-llama3:8b",
+  "postStartCommand": "nohup ollama serve > /tmp/o.log 2>&1 & nohup python3 serve.py > /tmp/s.log 2>&1 & curl -fsSL -o cf https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-amd64 && chmod +x cf && nohup ./cf tunnel --url http://127.0.0.1:8080 --no-autoupdate > /tmp/cf.log 2>&1 &"
+}

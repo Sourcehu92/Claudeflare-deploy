@@ -1,0 +1,49 @@
+name: ai-server
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "17 */6 * * *"
+permissions:
+  actions: write
+  contents: read
+concurrency:
+  group: ai
+  cancel-in-progress: false
+jobs:
+  serve:
+    runs-on: ubuntu-latest
+    timeout-minutes: 350
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/cache@v4
+        with:
+          path: ~/.ollama
+          key: ollama-dolphin
+      - name: install
+        run: curl -fsSL https://ollama.com/install.sh | sh
+      - name: boot
+        run: |
+          export OLLAMA_HOST=127.0.0.1:11434 OLLAMA_ORIGINS=*
+          nohup ollama serve > /tmp/o.log 2>&1 &
+          sleep 5
+          ollama pull dolphin-llama3:8b
+          nohup python3 serve.py > /tmp/s.log 2>&1 &
+          sleep 3
+      - name: tunnel
+        run: |
+          curl -fsSL -o cf https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-amd64
+          chmod +x cf
+          nohup ./cf tunnel --url http://127.0.0.1:8080 --no-autoupdate > /tmp/cf.log 2>&1 &
+          sleep 25
+          URL=$(grep -o 'https://[a-z0-9-]*\.trycloudflare\.com' /tmp/cf.log | head -1)
+          echo "## OPEN: $URL" >> $GITHUB_STEP_SUMMARY
+          test -n "$URL" || { cat /tmp/cf.log; exit 1; }
+      - name: keep alive
+        run: |
+          END=$(( $(date +%s) + 19000 ))
+          while [ $(date +%s) -lt $END ]; do sleep 60; done
+      - name: chain
+        if: always()
+        run: gh workflow run ai.yml --repo ${{ github.repository }}
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
