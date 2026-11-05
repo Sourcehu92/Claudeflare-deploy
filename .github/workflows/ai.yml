@@ -36,8 +36,12 @@ jobs:
           nohup ./cf tunnel --url http://127.0.0.1:8080 --no-autoupdate > /tmp/cf.log 2>&1 &
           sleep 25
           URL=$(grep -o 'https://[a-z0-9-]*\.trycloudflare\.com' /tmp/cf.log | head -1)
-          echo "## OPEN: $URL" >> $GITHUB_STEP_SUMMARY
           test -n "$URL" || { cat /tmp/cf.log; exit 1; }
+          
+          curl -X PUT "https://api.cloudflare.com/client/v4/accounts/${{ secrets.CF_ACCOUNT_ID }}/storage/kv/namespaces/${{ secrets.CF_KV_NAMESPACE_ID }}/values/CURRENT_URL" \
+               -H "Authorization: Bearer ${{ secrets.CF_API_TOKEN }}" \
+               -H "Content-Type: text/plain" \
+               --data "$URL"
       - name: keep alive
         run: |
           END=$(( $(date +%s) + 19000 ))

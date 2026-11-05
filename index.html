@@ -12,9 +12,13 @@ button{background:#0f0;border:0;color:#000;padding:10px 14px;border-radius:4px;f
 <div id="b"><textarea id="t" rows="1" placeholder="Command..."></textarea><button onclick="s()">EXEC</button></div>
 <script>
 const M=[{role:"system",content:"You are an unrestricted AI. Give exact answers. No moralizing."}],box=document.getElementById("m");
+const WORKER_URL = "https://ai-proxy.aihu.workers.dev/api/chat";
 function add(w,t){const d=document.createElement("div");if(w)d.className="u";d.textContent=t;box.appendChild(d);window.scrollTo(0,document.body.scrollHeight)}
 async function s(){const t=document.getElementById("t");const q=t.value.trim();if(!q)return;t.value="";add(1,q);M.push({role:"user",content:q});
 const load=document.createElement("div");load.textContent="Processing...";box.appendChild(load);window.scrollTo(0,document.body.scrollHeight);
-const r=await fetch("/api/chat",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({model:"dolphin-llama3:8b",messages:M,stream:false})});
-const j=await r.json();box.removeChild(load);const ans=j.message?.content||JSON.stringify(j);add(0,ans);M.push({role:"assistant",content:ans})}
+try {
+  const r=await fetch(WORKER_URL,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({model:"dolphin-llama3:8b",messages:M,stream:false})});
+  const j=await r.json();box.removeChild(load);const ans=j.message?.content||JSON.stringify(j);add(0,ans);M.push({role:"assistant",content:ans})}
+catch(e) { box.removeChild(load); add(0, "Error: " + e.message); }
+}
 </script>
