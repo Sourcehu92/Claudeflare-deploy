@@ -1,0 +1,73 @@
+<!doctype html><html lang=en><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><title>Alias Generator</title>
+<style>
+:root{--bg:#0d1117;--fg:#c9d1d9;--acc:#58a6ff;--grn:#238636;--bd:#30363d}
+*{box-sizing:border-box}body{font-family:-apple-system,system-ui,sans-serif;background:var(--bg);color:var(--fg);padding:16px;margin:0 auto;max-width:520px}
+h1{color:var(--acc);font-size:22px;margin:8px 0 4px}h3{font-size:14px;margin:20px 0 8px;color:#8b949e}
+#addr{font-size:18px;color:var(--acc);margin:16px 0;padding:14px;background:#161b22;border-radius:8px;word-break:break-all;min-height:52px;display:flex;align-items:center;justify-content:center}
+button{background:var(--grn);color:#fff;border:0;border-radius:8px;padding:14px 20px;font-size:15px;font-weight:bold;cursor:pointer;margin:4px 2px;flex:1}
+button:disabled{opacity:.5}#row{display:flex;gap:4px}#status{font-size:12px;color:#8b949e;margin:8px 0;min-height:18px}
+.msg{background:#161b22;border:1px solid var(--bd);padding:10px;margin:8px 0;border-radius:8px}
+.from{color:var(--acc);font-size:12px}.subj{font-weight:bold;margin:4px 0}
+pre{white-space:pre-wrap;font-size:12px;background:#0d1117;padding:8px;border-radius:4px;margin:8px 0;word-break:break-word}
+.msg button{padding:8px 12px;font-size:12px;margin:0;flex:none}
+.note{font-size:11px;color:#6e7681;margin-top:20px;line-height:1.5}
+</style></head><body>
+<h1>Alias Generator</h1>
+<p style="font-size:13px;color:#8b949e;margin:0">Each tap = fresh disposable inbox. No login.</p>
+<div id=addr>tap generate</div>
+<div id=row><button id=gen>Generate new</button><button id=copy disabled>Copy</button></div>
+<div id=status></div>
+<h3>Inbox</h3><div id=inbox><em style="color:#6e7681;font-size:12px">no address yet</em></div>
+<p class=note>mail.tm mode by default. Set CONFIG.domain to your own domain for permanent forwarding to your real Gmail.</p>
+<script>
+const CONFIG = { domain: "" };
+const API = "/api"; let cur = null, poll = null;
+const $ = id => document.getElementById(id);
+const esc = s => String(s||"").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const st = t => $("status").textContent = t;
+async function gen() {
+  $("gen").disabled = true; st("allocating...");
+  if (poll) { clearInterval(poll); poll = null; }
+  try {
+    if (CONFIG.domain) {
+      const local = Math.random().toString(36).slice(2, 12);
+      cur = { addr: local + "@" + CONFIG.domain, mode: "domain" };
+      st("created — arrives in your real inbox");
+    } else {
+      const d = await (await fetch(API + "/domains?page=1")).json();
+      const dom = d["hydra:member"][0].domain;
+      const local = Math.random().toString(36).slice(2, 12);
+      const pass = Math.random().toString(36).slice(2) + Math.random().toString(36).slice(2, 10);
+      const addr = local + "@" + dom;
+      const cre = await (await fetch(API + "/accounts", {method:"POST", headers:{"Content-Type":"application/json"}, body: JSON.stringify({address: addr, password: pass})})).json();
+      if (!cre.id) throw new Error("create: " + JSON.stringify(cre).slice(0,200));
+      const tk = await (await fetch(API + "/token", {method:"POST", headers:{"Content-Type":"application/json"}, body: JSON.stringify({address: addr, password: pass})})).json();
+      cur = { addr, pass, token: tk.token, id: cre.id, mode: "mailtm" };
+      st("inbox ready — mail appears below");
+    }
+    $("addr").textContent = cur.addr; $("copy").disabled = false;
+    try { await navigator.clipboard.writeText(cur.addr); st("copied " + cur.addr); } catch {}
+    if (cur.mode === "mailtm") { pollInbox(); poll = setInterval(pollInbox, 4000); }
+    else { $("inbox").innerHTML = '<em style="color:#6e7681;font-size:12px">domain mode: check your real inbox</em>'; }
+  } catch (e) { st("error: " + e.message); }
+  finally { $("gen").disabled = false; }
+}
+async function pollInbox() {
+  if (!cur || cur.mode !== "mailtm") return;
+  try {
+    const r = await fetch(API + "/messages", {headers: {Authorization: "Bearer " + cur.token}});
+    const j = await r.json(); const items = j["hydra:member"] || [];
+    if (!items.length) { $("inbox").innerHTML = '<em style="color:#6e7681;font-size:12px">empty — waiting</em>'; return; }
+    $("inbox").innerHTML = items.map(m => `<div class=msg><div class=from>${esc(m.from.address)}</div><div class=subj>${esc(m.subject)}</div><button onclick="viewMsg('${esc(m.id)}')">read</button></div>`).join("");
+  } catch {}
+}
+async function viewMsg(id) {
+  try {
+    const r = await fetch(API + "/messages/" + id, {headers: {Authorization: "Bearer " + cur.token}});
+    const m = await r.json();
+    $("inbox").innerHTML = `<div class=msg><div class=from>${esc(m.from.address)}</div><div class=subj>${esc(m.subject)}</div><pre>${esc(m.text||m.html||"")}</pre><button onclick="pollInbox()">back</button></div>`;
+  } catch { st("read error"); }
+}
+$("gen").onclick = gen;
+$("copy").onclick = () => { if (cur) navigator.clipboard.writeText(cur.addr).then(() => st("copied")); };
+</script></body></html>
