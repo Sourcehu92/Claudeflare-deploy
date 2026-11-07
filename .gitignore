@@ -1,2 +1,18 @@
-release.keystore
-keystore_b64.txt
+# build/APK junk
+*.apk
+*.apk.idsig
+*.jks
+*.keystore
+apktool.jar
+game_*.apk
+Hustler_*.apk
+recon_src/*/build/
+
+# wrangler / node
+.wrangler/
+node_modules/
+*.log
+
+# secrets
+.env
+.env.*
